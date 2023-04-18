@@ -1,12 +1,6 @@
 ### Hi there 👋
 [![Solved.ac 프로필](http://mazassumnida.wtf/api/v2/generate_badge?boj=chan120714)](https://solved.ac/chan120714)
-(https://github-readme-stats.vercel.app/api/top-langs/?username={chan120714}&layout=compact)
-(https://github-readme-stats.vercel.app/api?username={chan120714}&hide={hidecontents})
-**chan120714/chan120714** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
+### Language
 - <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=Python&logoColor=white"/>
 - 🌱 I’m currently learning ...
 - <img src="https://img.shields.io/badge/C++-00599C?style=flat-square&logo=cplusplus&logoColor=white"/>
@@ -18,3 +12,4 @@ Here are some ideas to get you started:
 - ⚡ Fun fact: ...
 -->
 <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=chan120714&layout=compact"/>
+<img src="https://github-readme-stats.vercel.app/api?username={chan120714}&hide={hidecontents}"/>
