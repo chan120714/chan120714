@@ -7,4 +7,4 @@
 
 
 <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=chan120714&layout=compact"/>
-<img src="https://github-readme-stats.vercel.app/api?username={chan120714}&hide={hidecontents}"/>
+<img src="https://github-readme-stats.vercel.app/api?username=chan120714&hide={hidecontents}"/>
