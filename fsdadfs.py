@@ -34,30 +34,39 @@ t4.up();t4.goto(-350,-220);t4.down()
 
 win=[0,50,100,150,200]
 while 1:
-    x1=randint(2,20)
-    if t0.xcor()<240:
-        t0.fd(x1)
-        if t0.xcor()>=240:
-            t0.fd(win.pop())
-    x1=randint(2,20)
-    if t1.xcor()<240:
-        t1.fd(x1)
-        if t1.xcor()>=240:
-            t1.fd(win.pop())
-    x1=randint(2,20)
-    if t2.xcor()<240:
-        t2.fd(x1)
-        if t2.xcor()>=240:
-            t2.fd(win.pop())
-    x1=randint(2,20)
-    if t3.xcor()<240:
-        t3.fd(x1)
-        if t3.xcor()>=240:
-            t3.fd(win.pop())
-    x1=randint(2,20)
-    if t4.xcor()<240:
-        t4.fd(x1)
-        if t4.xcor()>=240:
-            t4.fd(win.pop())
+    k=[i for i in range(1,6)]
+    for i in range(5):
+        c=choice(k)
+        k.remove(c)
+        if c==1:       
+            x1=randint(2,20)
+            if t0.xcor()<240:
+                t0.fd(x1)
+                if t0.xcor()>=240:
+                    t0.fd(win.pop())
+        elif c==2:
+            x1=randint(2,20)
+            if t1.xcor()<240:
+                t1.fd(x1)
+                if t1.xcor()>=240:
+                    t1.fd(win.pop())
+        elif c==3:
+            x1=randint(2,20)
+            if t2.xcor()<240:
+                t2.fd(x1)
+                if t2.xcor()>=240:
+                    t2.fd(win.pop())
+        elif c==4:
+            x1=randint(2,20)
+            if t3.xcor()<240:
+                t3.fd(x1)
+                if t3.xcor()>=240:
+                    t3.fd(win.pop())
+        else:
+            x1=randint(2,20)
+            if t4.xcor()<240:
+                t4.fd(x1)
+                if t4.xcor()>=240:
+                    t4.fd(win.pop())
     if len(win)==0:
         break
