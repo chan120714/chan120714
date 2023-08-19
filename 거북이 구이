@@ -1,0 +1,149 @@
+from turtle import*
+from random import*
+speed(1000)
+up()
+ht()
+goto(-350,210)
+for i in range(20):
+    pendown(),write(i,font=('',20));fd(15)
+    pu();right(90);fd(30);pd();fd(500);right(180);pu();fd(530);right(90);fd(15)
+t0=Turtle()
+t0.shape("turtle")
+t0.color('red')
+t0.up();t0.goto(-350,100);
+
+t1=Turtle()
+t1.shape("turtle")
+t1.color('blue')
+t1.up();t1.goto(-350,20);
+    
+t2=Turtle()
+t2.shape("turtle")
+t2.color('green')
+t2.up();t2.goto(-350,-60);
+
+t3=Turtle()
+t3.shape("turtle")
+t3.color('yellow')
+t3.up();t3.goto(-350,-140);
+
+t4=Turtle()
+t4.shape("turtle")
+t4.color('black')
+t4.up();t4.goto(-350,-220);
+print("돈을 모으자! 목표금액 1억원 ver1.5.1")
+자금=1000000
+대출=0
+pppp=0
+은행=0
+bb=[2,1.5,1,0.8,0.1]
+while True:
+    win=[0,50,100,150,200]
+    print('자금',자금,'원')
+    p=[]
+    if 대출==0:
+        print('저축하시겠습니까? 현재 %d원 저축중'%은행)
+        if int(input())>0:
+            rr=int(input())
+            if rr<=자금:
+                은행+=rr
+                자금-=rr
+    if 은행>0:
+        print("출금하시겠습니까? 현재%d원 저축중"%은행)
+        rr=int(input())
+        if rr<=은행:
+            자금+=rr
+            은행-=rr
+    if 대출>0:
+        print("대출 상환하시겠습니까?:%d(현재 %d일째)"%(대출,pppp))
+        rr=int(input())
+        if rr<=자금:
+            대출-=rr
+            자금-=rr
+    print("대출 하시겠습니까? Y/N(1,0)")
+    aaa=int(input())
+    if aaa==1:
+        print("빌릴 돈을 입력하시오")
+        rr=int(input())
+        대출+=rr
+        자금+=rr
+    print('자금',자금,'원')
+    print("걸 돈을 입력하시오",end='')
+    w=int(input())
+    자금-=w
+    if 자금<0:
+        print("오류")
+        자금+=w
+        continue
+    print("거북이 번호를 입력하시오",end='')
+    tt=int(input())
+    if tt<1 or tt>5:
+        print('오류')
+        continue
+    while 1:
+        k=[i for i in range(1,6)]
+        for i in range(5):
+            c=choice(k)
+            k.remove(c)
+            if c==1:       
+                x1=randint(2,20)
+                if t0.xcor()<240:
+                    t0.fd(x1)
+                    if t0.xcor()>=240:
+                        t0.fd(win.pop())
+                        p.append(1)
+                        
+            elif c==2:
+                x1=randint(2,20)
+                if t1.xcor()<240:
+                    t1.fd(x1)
+                    if t1.xcor()>=240:
+                        t1.fd(win.pop())
+                        p.append(2)
+            elif c==3:
+                x1=randint(2,20)
+                if t2.xcor()<240:
+                    t2.fd(x1)
+                    if t2.xcor()>=240:
+                        t2.fd(win.pop())
+                        p.append(3)
+            elif c==4:
+                x1=randint(2,20)
+                if t3.xcor()<240:
+                    t3.fd(x1)
+                    if t3.xcor()>=240:
+                        t3.fd(win.pop())
+                        p.append(4)
+            else:
+                x1=randint(2,20)
+                if t4.xcor()<240:
+                    t4.fd(x1)
+                    if t4.xcor()>=240:
+                        t4.fd(win.pop())
+                        p.append(5)
+        if len(win)==0:
+            break
+    print('%d등 %f배'%(p.index(tt)+1,bb[p.index(tt)]))
+    자금+=w*(bb[p.index(tt)])
+    t0.goto(-350,100)
+    t1.goto(-350,20)
+    t2.goto(-350,-60)
+    t3.goto(-350,-140)
+    t4.goto(-350,-220)
+    대출*=1.05
+    대출=int(대출)
+    if 대출>0:
+        pppp+=1
+    if pppp>4:
+        print("대출 상환실패, 신용불량자 엔딩")
+        break
+    if 대출==0:
+        pppp=0
+    은행*=1.02
+    은행=int(은행)
+    if 대출==0 and 자금+은행>=100000000:
+        print("성공한인생 엔딩")
+        print("계속하시겠습니까?")
+        input()
+        print("불가능합니다.")
+        break
