@@ -314,6 +314,36 @@ def keyboard():
     print("아르바이트 완료")
     자금+=10000
 
+
+def rest():
+    global 피로도
+    피로도=-1
+    print("휴식을 취했다",end='')
+    for i in range(3):
+        sleep(0.5)
+        print('.',end='')
+    print()
+
+def day_by_day():
+    global tt,청결도,포만감,date,month,year,time,ti,피로도
+    피로도+=1
+    tt+=1
+    청결도-=1
+    포만감-=20
+    if tt>3:
+        time+=1
+        tt=0
+        ti+=1
+        if ti>6:
+            ti=0
+        print("하루가 지났다...")
+        date+=1
+    if date>일[month-1]:
+        date=1
+        month+=1
+    if month>12:
+        month=1
+        year+=1
 일=[31,28,31,30,31,30,31,31,30,31,30,31]
 주=['월','화','수','목','금','토','일']
 년=1
@@ -328,7 +358,9 @@ ti=0
 lotto_buy=[]
 포만감=100
 청결도=5
-while time<=기한:print("  			            		 [999] - 휴식")
+피로도=0
+while time<=기한:
+    print("  			            		 [999] - 휴식")
     print(f"{year}년 {month}월 {date}일 {hour[tt]}시 {주[ti]}요일 ({time}일째)",end='')
     if 기한==INF:
         print()
@@ -349,32 +381,22 @@ while time<=기한:print("  			            		 [999] - 휴식")
     print('-'*80)
     print(' ' *25+"스테이터스")
     print(f"포만감 - {포만감} \t 청결도 - {청결도}")
-    print("(포만감이 -100 이하인경우, 청결도가 -8인 이하인 경우 턴 종료이후 사망합니다.)
+    print("(포만감이 -100 이하인경우, 청결도가 -8인 이하인 경우 턴 종료이후 사망합니다.")
+    print(f'피로도 - {피로도} (피로도가 5이상인경우 해당턴에 무조건 휴식이 진행됩니다.')
+    if 피로도>=5:
+        rest()
+        day_by_day()
+        continue
     print(" "*25+'무엇을 할까?')
     print("[100] - 아르바이트 \t [101] - 편의점 \t [102] - 경마장")
     print("[103] - 병원 \t [104] - 마트 \t [105] - 은행")
     print("[106] - 씻기 \t [107] - 먹기")
     print("  			            		 [999] - 휴식")
-    pii=intinput()
+    pii=intinput(input())
     if pii==100:
         keyboard()
+    elif pii==101:
+        convi()
     elif pii==102:
         umamusume()
-    tt+=1
-    청결도-=1
-    포만도-=20
-    if tt>3:
-        time+=1
-        tt=0
-        ti+=1
-        if ti>6:
-            ti=0
-        print("하루가 지났다...")
-        date+=1
-    if date>일[month-1]:
-        date=1
-        month+=1
-    if month>12:
-        month=1
-        year+=1
-
+    day_by_day()
