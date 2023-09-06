@@ -1,0 +1,380 @@
+from random import*
+from math import*
+from turtle import*
+from collections import*
+from itertools import*
+from decimal import*
+from time import*
+from datetime import*
+import sys
+sys.setrecursionlimit(1000000)
+sys.set_int_max_str_digits(1000000)
+INF=1e10
+def intinput(a):
+    t=''
+    for i in a:
+        if '0'<=i<='9':
+            t+=i
+    if len(t)==0:
+        print('무언가 잘못되었습니다.')
+        return intinput(input("다시 입력"))
+    return int(t)
+print("-"*80)
+print("    박지호인 내가 부자가 될 수 있을 리 없잖아,무리무리!(※무리가 아니었다?!)    ")
+print(" "*65+"ver 1.2.10")
+print("-"*80)
+print("[0] 힘세고 강한 시작")
+print("[1] 안하기")
+ttt=intinput(input())
+if ttt==1:
+    print("프로그램을 종료합니다.")
+    exit()
+
+print("-"*80)
+print(' '*25+"설명을 들으시겠습니까?")
+print("[0] 듣기")
+print("[1] 안듣기")
+ttt=intinput(input())
+if ttt==0:
+    print("박지호로 돈을버는 게임입니다.")
+    print("하루는 4턴으로 구성되어 있으며,각 턴마다 행동을 선택할 수 있습니다.")
+    print('-'*80)
+while True:
+    print("-"*80)
+    print(" "*25+"★★ 모드를 선택해 주세요 ★★\n")
+    print("-"*80)
+    print("[0] EASY")
+    print("[1] NORMAL")
+    print("[2] ENDLESS")
+    print("[3] 빢찌호")
+    print("[4] 빡빢찌호")
+    print("[5] 빢빢찌호")
+    print("[6] HELP(설명)")
+    ttt=intinput(input())
+    if ttt==6:
+        print("-"*80)
+        print("EASY : 이재용아들모드.기한있음")
+        print("NORMAL : 보통 플레이 지향. 기한있음")
+        print("ENDLESS : 시간 빌게이츠 지향. 기한없음")
+        print("빢찌호 : 한국인 모드. 기한있음")
+        print("빡빢찌호: 빢찌호 하드모드.기한있음")
+        print("빢빢찌호: 빢찌호 하드모드.기한없음")
+        print("-"*80)
+        continue
+    elif ttt>=3:
+        print("주의: 이난이도는 당신의 삶을 지옥으로 만들 것 입니다.")
+        목표=10000000
+        기한=60
+        자금=100000
+        if ttt==3:
+            print("빢찌호",end='')
+        elif ttt==4:
+            print("빡빢찌호",end='')
+            자금=0
+            목표+=10000000
+        else:
+            자금=0
+            목표=INF*INF
+            print("빢빢찌호",end='')
+            기한=INF
+    else:
+        if ttt==2:
+            목표=INF*INF
+            기한=INF
+            자금=1000000
+            print("ENDLESS",end='')
+        elif ttt==1:
+            목표=10000000
+            기한=365
+            자금=1000000
+            print("NORMAL",end='')
+        else:
+            목표=10000000
+            기한=365
+            자금=9000000
+            print("EASY",end='')
+    print(" 이난이도가 맞으십니까? (Y/N)")
+    tuy=input()
+    if tuy=="Y" or tuy=='y':
+        break
+print(' '*32+"세팅중",end='')
+for i in range(3):
+    sleep(0.5)
+    print('.',end='')
+sleep(0.7)
+print()
+print(' '*32+"세팅완료")
+print("-"*80)
+주식={
+    '애플':180000,
+    '삼성':70000,
+    '코스피':2500,
+    '코스닥':900,
+    '나스닥':14000,
+    '테슬라':245010,
+    '엔비디아':485090
+}
+
+def 주식갱신():
+    for i in 주식:
+        a=randint(-10,10)
+        주식[i]*=(100+a)/100
+        주식[i]=int(주식[i])
+
+        
+def umamusume():
+    global 자금
+    win=[0,50,100,150,200]
+    bb=[2,1.5,1,0.8,0.1]
+    p=[]
+    speed(1000)
+    up()
+    ht()
+    goto(-350,210)
+    for i in range(20):
+        pendown(),write(i,font=('',20));fd(15)
+        pu();right(90);fd(30);pd();fd(500);right(180);pu();fd(530);right(90);fd(15)
+    t0=Turtle()
+    t0.shape("turtle")
+    t0.color('red')
+    t0.up();t0.goto(-350,100);
+
+    t1=Turtle()
+    t1.shape("turtle")
+    t1.color('blue')
+    t1.up();t1.goto(-350,20);
+        
+    t2=Turtle()
+    t2.shape("turtle")
+    t2.color('green')
+    t2.up();t2.goto(-350,-60);
+
+    t3=Turtle()
+    t3.shape("turtle")
+    t3.color('yellow')
+    t3.up();t3.goto(-350,-140);
+
+    t4=Turtle()
+    t4.shape("turtle")
+    t4.color('black')
+    t4.up();t4.goto(-350,-220);
+    print('자금',자금,'원')
+    print("걸 돈을 입력하시오",end='')
+    w=int(input())
+    자금-=w
+    if 자금<0:
+        print("오류")
+        자금+=w
+        return umamusume()
+    print("거북이 번호를 입력하시오",end='')
+    tt=int(input())
+    if tt<1 or tt>5:
+        print('오류')
+        return umamusume()
+    while 1:
+        k=[i for i in range(1,6)]
+        for i in range(5):
+            c=choice(k)
+            k.remove(c)
+            if c==1:       
+                x1=randint(2,20)
+                if t0.xcor()<240:
+                    t0.fd(x1)
+                    if t0.xcor()>=240:
+                        t0.fd(win.pop())
+                        p.append(1)
+                        
+            elif c==2:
+                x1=randint(2,20)
+                if t1.xcor()<240:
+                    t1.fd(x1)
+                    if t1.xcor()>=240:
+                        t1.fd(win.pop())
+                        p.append(2)
+            elif c==3:
+                x1=randint(2,20)
+                if t2.xcor()<240:
+                    t2.fd(x1)
+                    if t2.xcor()>=240:
+                        t2.fd(win.pop())
+                        p.append(3)
+            elif c==4:
+                x1=randint(2,20)
+                if t3.xcor()<240:
+                    t3.fd(x1)
+                    if t3.xcor()>=240:
+                        t3.fd(win.pop())
+                        p.append(4)
+            else:
+                x1=randint(2,20)
+                if t4.xcor()<240:
+                    t4.fd(x1)
+                    if t4.xcor()>=240:
+                        t4.fd(win.pop())
+                        p.append(5)
+        if len(win)==0:
+            break
+    print('%d등 %f배'%(p.index(tt)+1,bb[p.index(tt)]))
+    자금+=w*(bb[p.index(tt)])
+    자금=int(자금)
+    t0.goto(-350,100)
+    t1.goto(-350,20)
+    t2.goto(-350,-60)
+    t3.goto(-350,-140)
+    t4.goto(-350,-220)
+
+def lotto(k):
+    a=[]
+    su=0
+    pp=[0,0,0,0,0,0]
+    while len(a)!=7:
+        n=randint(1,45)
+        if n in a:
+            continue
+        else:
+            if len(a)==6:
+                a.sort()
+                break
+    for i in k:
+        t=12-len(list(set(a+i)))
+        if t==6:
+            su+=1952160000
+            pp[0]+=1
+        elif t==5:
+            if n in i:
+                su+=54226666
+                pp[1]+=1
+            else:
+                su+=1427017
+                pp[2]+=1
+        elif t==4:
+            su+=50000
+            pp[3]+=1
+        elif t==3:
+            su+=5000
+            pp[4]+=1
+        else:
+            pp[5]+=1
+    return a,pp
+
+def powerball():
+    a=[]
+    while len(a)!=5:
+        n=randint(1,69)
+        if n in a:
+            continue
+        else:
+            a.append(n)
+    a.sort()
+    a.append(randint(1,26))
+    return a
+def convi():
+    global 소지물품,자금,lotto_buy
+    print(" "*25+"무엇을 구매할까?")
+    print('[100] - 로또 6/45(1000) \t [101]-파워볼(2600)')
+    print('[200] - 삼각김밥(1000) \t [201] - 라면(1000) \t [202] - 도시락(4500)')
+    print("  			            		 [999] - 나가기")
+    if tt==999:
+        return
+    if tt==100:
+        print("몇 장 사시겠습니까?")
+        pp=intinput()
+        if pp*1000<=자금:
+            자금-=pp*1000
+            for i in range(pp):
+                a=[]
+                while len(a)!=6:
+                    n=randint(1,45)
+                    if n in a:
+                        continue
+                    else:
+                        a.append(n)
+                        if len(a)==6:
+                            a.sort()
+                lotto_buy.append(a)
+        else:
+            print("돈이부족합니다.")
+            convi()
+def keyboard():
+    global 자금
+    print("press enter",end='')
+    input()
+    for i in range(1,randint(5,6)):
+        q=''
+        for j in range(randint(5,7)):
+            q+=chr(randint(33,126))
+        print("문제 %d\n"%(i)+q)
+        while True:
+            s=input().rstrip()
+            if q==s:
+                print("통과!")
+                break
+            else:
+                print("오타! 다시도전!")
+    print("아르바이트 완료")
+    자금+=10000
+
+일=[31,28,31,30,31,30,31,31,30,31,30,31]
+주=['월','화','수','목','금','토','일']
+년=1
+year=1
+month=1
+date=1
+time=1
+hour=[12,15,18,21]
+tt=0
+ti=0
+소지물품={}
+lotto_buy=[]
+포만감=100
+청결도=5
+while time<=기한:print("  			            		 [999] - 휴식")
+    print(f"{year}년 {month}월 {date}일 {hour[tt]}시 {주[ti]}요일 ({time}일째)",end='')
+    if 기한==INF:
+        print()
+    else:
+        print(f"잔여 {기한-time}일",end='')
+    print(f" 소지금:{자금}원")
+    if 목표>=INF:
+        print()
+    else:
+        print(f"(목표금액까지 {목표-자금}원)")
+    print("-"*80)
+    print("보유아이템:",end='')
+    if len(소지물품)==0:
+        print("없음",end='')
+    for i in 소지물품:
+        print(f'{i}:{소지물품[i]}개',end=' ')
+    print()
+    print('-'*80)
+    print(' ' *25+"스테이터스")
+    print(f"포만감 - {포만감} \t 청결도 - {청결도}")
+    print("(포만감이 -100 이하인경우, 청결도가 -8인 이하인 경우 턴 종료이후 사망합니다.)
+    print(" "*25+'무엇을 할까?')
+    print("[100] - 아르바이트 \t [101] - 편의점 \t [102] - 경마장")
+    print("[103] - 병원 \t [104] - 마트 \t [105] - 은행")
+    print("[106] - 씻기 \t [107] - 먹기")
+    print("  			            		 [999] - 휴식")
+    pii=intinput()
+    if pii==100:
+        keyboard()
+    elif pii==102:
+        umamusume()
+    tt+=1
+    청결도-=1
+    포만도-=20
+    if tt>3:
+        time+=1
+        tt=0
+        ti+=1
+        if ti>6:
+            ti=0
+        print("하루가 지났다...")
+        date+=1
+    if date>일[month-1]:
+        date=1
+        month+=1
+    if month>12:
+        month=1
+        year+=1
+
