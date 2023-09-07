@@ -98,35 +98,8 @@ while True:
     if tuy=="Y" or tuy=='y':
         break
 print(' '*32+"세팅중",end='')
-for i in range(3):
-    sleep(0.5)
-    print('.',end='')
-sleep(0.7)
-print()
-print(' '*32+"세팅완료")
-print("-"*80)
-주식={
-    '애플':180000,
-    '삼성':70000,
-    '코스피':2500,
-    '코스닥':900,
-    '나스닥':14000,
-    '테슬라':245010,
-    '엔비디아':485090
-}
-
-def 주식갱신():
-    for i in 주식:
-        a=randint(-10,10)
-        주식[i]*=(100+a)/100
-        주식[i]=int(주식[i])
-
-        
-def umamusume():
-    global 자금
-    win=[0,50,100,150,200]
-    bb=[2,1.5,1,0.8,0.1]
-    p=[]
+p=[]
+for i in range(1):
     speed(1000)
     up()
     ht()
@@ -158,19 +131,51 @@ def umamusume():
     t4.shape("turtle")
     t4.color('black')
     t4.up();t4.goto(-350,-220);
-    print('자금',자금,'원')
-    print("걸 돈을 입력하시오",end='')
-    w=int(input())
-    자금-=w
-    if 자금<0:
-        print("오류")
-        자금+=w
-        return umamusume()
-    print("거북이 번호를 입력하시오",end='')
-    tt=int(input())
-    if tt<1 or tt>5:
-        print('오류')
-        return umamusume()
+for i in range(3):
+    sleep(0.5)
+    print('.',end='')
+sleep(0.7)
+print()
+print(' '*32+"세팅완료")
+print("-"*80)
+주식={
+    '애플':180000,
+    '삼성':70000,
+    '코스피':2500,
+    '코스닥':900,
+    '나스닥':14000,
+    '테슬라':245010,
+    '엔비디아':485090
+}
+
+def 주식갱신():
+    for i in 주식:
+        a=randint(-10,10)
+        주식[i]*=(100+a)/100
+        주식[i]=int(주식[i])
+
+
+
+        
+def umamusume():
+    global 자금
+    win=[0,50,100,150,200]
+    bb=[2,1.5,1,0.8,0.1]
+    while True:
+        print('소지금',자금,'원')
+        print("걸 돈을 입력하시오",end='')
+        w=intinput(input())
+        if w>자금:
+            print("돈이 부족합니다. 다시 입력해주십시오")
+        else:
+            break
+    while True:
+        print("거북이 번호를 입력하시오",end='')
+        tt=intinput(input())
+        if tt<1 or tt>5:
+            print("해당하는 거북이가 존재하지 않습니다. :(")
+        else:
+            break
     while 1:
         k=[i for i in range(1,6)]
         for i in range(5):
@@ -214,7 +219,7 @@ def umamusume():
                         p.append(5)
         if len(win)==0:
             break
-    print('%d등 %f배'%(p.index(tt)+1,bb[p.index(tt)]))
+    print('\n%d등 %f배'%(p.index(tt)+1,bb[p.index(tt)]))
     자금+=w*(bb[p.index(tt)])
     자금=int(자금)
     t0.goto(-350,100)
@@ -222,6 +227,14 @@ def umamusume():
     t2.goto(-350,-60)
     t3.goto(-350,-140)
     t4.goto(-350,-220)
+    print(f"현재 소지금 : {자금}원")
+    print("더 하시겠습니까?")
+    print("[0] - 더 할래! [1]- 나갈래")
+    k=intinput(input())
+    if k==0:
+        return umamusume()
+    else:
+        return
 
 def lotto(k):
     a=[]
@@ -257,6 +270,210 @@ def lotto(k):
             pp[5]+=1
     return a,pp
 
+
+
+def baccarat():
+    global 자금
+    print("-"*80)
+    print(" "*25+"★★ 바카라 ★★\n")
+    suit=['♠','◆','♥','♣']
+    numb=['A','2','3','4','5','6','7','8','9','10','J','Q','K']
+    deck=[i%52 for i in range(52*8)]
+    while True:
+        if len(deck)<6:
+            return
+        print("[0] - 플레이어 \t [1] - 뱅커   \t [2] - 타이")
+        print("[3] - 페어     \t [4] - 6-뱅커 \t [5] - 스몰")
+        print("[6] - 빅       \t [100] - 설명 \t [999] - 그만하기")
+        k=intinput(input())
+        if k==100:
+            print("플레이어 : 플레이어가 승리한다에 겁니다. 배율 2.0배")
+            print("뱅커 : 뱅커가 승리한다에 겁니다. 배율 1.95배")
+            print("타이 : 비긴다에 겁니다. 배율 9배")
+            print("페어 : 선택한 쪽의 최초 2장의 카드가 같은 숫자이다에 겁니다. 배율 12배")
+            print("6-뱅커 : 뱅커가 6으로 이긴다에 겁니다. 배율 13배")
+            print("스몰 : 4장만 받고 끝난다에 겁니다. 배율 2.5배")
+            print("빅 : 5~6장으로 끝난다에 겁니다. 배율 1.5배")
+            print("※주의 : 카드덱은 8덱으로 구성이 되어있으며,카드가 5장 이하로 남을시 종료됩니다.\n")
+            continue
+        elif k==999:
+            return
+        elif k==3:
+            print("\n어느쪽에 거시겠습니까?")
+            print("[0] - 뱅커 \t [1] - 플레이어")
+            qw=intinput(input())
+        p=intinput(input('걸 돈 입력'))
+        banker=[]
+        player=[]
+        bank=[]
+        play=[]
+        for i in range(2):
+            t=choice(deck)
+            banker.append(t)
+            ist=t%13
+            if ist>=9:
+                bank.append(0)
+            else:
+                bank.append(ist+1)
+            deck.remove(t)
+            t=choice(deck)
+            player.append(t)
+            ist=t%13
+            if ist>=9:
+                play.append(0)
+            else:
+                play.append(ist+1)
+            deck.remove(t)
+        for i in banker:
+            print(f"{suit[i//13]}{numb[i%13]}",end=' ')
+        print()
+        for i in player:
+            print(f"{suit[i//13]}{numb[i%13]}",end=' ')
+        print()
+        if k==3:
+            if qw==0 and len(list(set(bank)))==1:
+                print("승리 \t 배율 12배")
+                자금+=p*12
+            elif qw==1 and len(list(set(play)))==1:
+                print("승리 \t 배율 12배")
+                자금+=p*12
+            else:
+                print('패배')
+            continue
+        if k==5:
+            if sum(bank)%10>=8 or sum(play)%10>=8:
+                print("승리 \t 배율 2.5배")
+                자금+=ceil(p*2.5)
+            else:
+                print('패배')
+            continue
+        elif k==6:
+            if sum(bank)%10<8 and sum(play)%10<8:
+                print("승리 \t 배율 1.5배")
+                자금+=ceil(p*1.5)
+            else:
+                print('패배')
+            continue
+        bnk=sum(bank)%10
+        pl=sum(play)%10
+        if bnk>=8:
+            if k==0:
+                print('승리 \t 배율 2배')
+                자금+=ceil(p*2)
+            elif k==1:
+                print('패배')
+            elif k==2 and pl!=bnk:
+                print('패배')
+            elif k==4:
+                print('패배')
+            continue
+        if pl>=8:
+            if k==1:
+                print('승리 \t 배율 1.95배')
+                자금+=ceil(p*1.95)
+            elif k==0:
+                print('패배')
+            elif k==2 and pl!=bnk:
+                print('패배')
+            elif k==4:
+                print('패배')
+            continue
+        if pl<6:
+            t=choice(deck)
+            player.append(t)
+            ist=t%13
+            if ist>=9:
+                play.append(0)
+            else:
+                play.append(ist+1)
+            deck.remove(t)
+            if bnk<3:
+                t=choice(deck)
+                banker.append(t)
+                ist=t%13
+                if ist>=9:
+                    bank.append(0)
+                else:
+                    bank.append(ist+1)
+                deck.remove(t)
+            elif bnk==3 and ist!=8:
+                t=choice(deck)
+                banker.append(t)
+                ist=t%13
+                if ist>=9:
+                    bank.append(0)
+                else:
+                    bank.append(ist+1)
+                deck.remove(t)
+
+            elif bnk==4 and ist!=0 and ist!=1 and ist!=8 and ist!=9:
+                t=choice(deck)
+                banker.append(t)
+                ist=t%13
+                if ist>=9:
+                    bank.append(0)
+                else:
+                    bank.append(ist+1)
+                deck.remove(t)
+
+            elif bnk==5 and 4<=ist<=7:
+                t=choice(deck)
+                banker.append(t)
+                ist=t%13
+                if ist>=9:
+                    bank.append(0)
+                else:
+                    bank.append(ist+1)
+                deck.remove(t)
+
+            elif bnk==6 and 6<=t<=7:
+                t=choice(deck)
+                banker.append(t)
+                ist=t%13
+                if ist>=9:
+                    bank.append(0)
+                else:
+                    bank.append(ist+1)
+                deck.remove(t)
+        elif bnk<=5:
+            t=choice(deck)
+            banker.append(t)
+            ist=t%13
+            if ist>=9:
+                bank.append(0)
+            else:
+                bank.append(ist+1)
+            deck.remove(t)
+        for i in banker:
+            print(f"{suit[i//13]}{numb[i%13]}",end=' ')
+        print()
+        for i in player:
+            print(f"{suit[i//13]}{numb[i%13]}",end=' ')
+        print()
+        bnk=sum(bank)%10
+        pl=sum(play)%10
+        if bnk==pl:
+            if k==2:
+                print('승리 \t 배율 9배')
+                자금+=ceil(p*9)
+            else:
+                print('패배')
+        elif bnk>pl:
+            if bnk==6 and t==4:
+                print('승리 \t 배율 13배')
+                자금+=ceil(p*13)
+            elif t==1:
+                print('승리 \t 배율 1.95배')
+                자금+=ceil(p*1.95)
+            else:
+                print('패배')
+        else:
+            if t==0:
+                print('승리 \t 배율 2배')
+                자금+=ceil(p*2)
+            else:
+                print('패배')
+
 def powerball():
     a=[]
     while len(a)!=5:
@@ -270,7 +487,79 @@ def powerball():
     return a
 def convi():
     global 소지물품,자금,lotto_buy
-    print(" "*25+"무엇을 구매할까?")
+    print(" "*25+"무엇을 구매def baccarat():
+    global 자금
+    print("-"*80)
+    print(" "*25+"★★ 바카라 ★★\n")
+    suit=['♠','◆','♥','♣']
+    numb=['A','2','3','4','5','6','7','8','9','10','J','Q','K']
+    deck=[i%52 for i in range(52*8)]
+    while True:
+        if len(deck)<6:
+            return
+        print("[0] - 플레이어 \t [1] - 뱅커   \t [2] - 타이")
+        print("[3] - 페어     \t [4] - 6-뱅커 \t [5] - 스몰")
+        print("[6] - 빅       \t [100] - 설명 \t [999] - 그만하기")
+        k=int(input())
+        if k==100:
+            print("플레이어 : 플레이어가 승리한다에 겁니다. 배율 2.0배")
+            print("뱅커 : 뱅커가 승리한다에 겁니다. 배율 1.95배")
+            print("타이 : 비긴다에 겁니다. 배율 9배")
+            print("페어 : 선택한 쪽의 최초 2장의 카드가 같은 숫자이다에 겁니다. 배율 12배")
+            print("6-뱅커 : 뱅커가 6으로 이긴다에 겁니다. 배율 13배")
+            print("스몰 : 4장만 받고 끝난다에 겁니다. 배율 2.5배")
+            print("빅 : 5~6장으로 끝난다에 겁니다. 배율 1.5배")
+            print("※주의 : 카드덱은 8덱으로 구성이 되어있으며,카드가 5장 이하로 남을시 종료됩니다.\n")
+            continue
+        elif k==999:
+            return
+        elif k==3:
+            print("\n어느쪽에 거시겠습니까?")
+            print("[0] - 뱅커 \t [1] - 플레이어")
+            qw=int(input())
+        p=int(input('걸 돈 입력'))
+        banker=[]
+        player=[]
+        bank=[]
+        play=[]
+        for i in range(2):
+            t=choice(deck)
+            banker.append(t)
+            ist=t%13
+            if ist>=9:
+                bank.append(0)
+            else:
+                bank.append(ist+1)
+            deck.remove(t)
+            t=choice(deck)
+            player.append(t)
+            ist=t%13
+            if ist>=9:
+                play.append(0)
+            else:
+                play.append(ist+1)
+            deck.remove(t)
+        for i in banker:
+            print(f"{suit[i//13]}{numb[i%13]}",end=' ')
+        print()
+        for i in player:
+            print(f"{suit[i//13]}{numb[i%13]}",end=' ')
+        print()
+        if k==3:
+            if qw==0 and len(list(set(bank)))==1:
+                print("승리 \t 배율 12배")
+                자금+=p*12
+            elif qw==1 and len(list(set(play)))==1:
+                print("승리 \t 배율 12배")
+                자금+=p*12
+            else:
+                print('패배')
+            continue
+
+def powerball():
+    a=[]
+    while len(a)!=5:
+        n=randint(1,69)할까?")
     print('[100] - 로또 6/45(1000) \t [101]-파워볼(2600)')
     print('[200] - 삼각김밥(1000) \t [201] - 라면(1000) \t [202] - 도시락(4500)')
     print("  			            		 [999] - 나가기")
@@ -317,10 +606,10 @@ def keyboard():
 
 def rest():
     global 피로도
-    피로도=-1
+    피로도=max(피로도-5,-1)
     print("휴식을 취했다",end='')
     for i in range(3):
-        sleep(0.5)
+        sleep(0.3)
         print('.',end='')
     print()
 
@@ -344,6 +633,8 @@ def day_by_day():
     if month>12:
         month=1
         year+=1
+
+
 일=[31,28,31,30,31,30,31,31,30,31,30,31]
 주=['월','화','수','목','금','토','일']
 년=1
@@ -360,7 +651,6 @@ lotto_buy=[]
 청결도=5
 피로도=0
 while time<=기한:
-    print("  			            		 [999] - 휴식")
     print(f"{year}년 {month}월 {date}일 {hour[tt]}시 {주[ti]}요일 ({time}일째)",end='')
     if 기한==INF:
         print()
@@ -382,15 +672,15 @@ while time<=기한:
     print(' ' *25+"스테이터스")
     print(f"포만감 - {포만감} \t 청결도 - {청결도}")
     print("(포만감이 -100 이하인경우, 청결도가 -8인 이하인 경우 턴 종료이후 사망합니다.")
-    print(f'피로도 - {피로도} (피로도가 5이상인경우 해당턴에 무조건 휴식이 진행됩니다.')
+    print(f'피로도 - {피로도} (피로도가 10이상인경우 해당턴에 무조건 휴식이 진행됩니다.')
     if 피로도>=5:
         rest()
         day_by_day()
         continue
     print(" "*25+'무엇을 할까?')
     print("[100] - 아르바이트 \t [101] - 편의점 \t [102] - 경마장")
-    print("[103] - 병원 \t [104] - 마트 \t [105] - 은행")
-    print("[106] - 씻기 \t [107] - 먹기")
+    print("[103] - 병원       \t [104] - 마트   \t [105] - 은행")
+    print("[106] - 씻기       \t [107] - 먹기   \t [108] - 바카라")
     print("  			            		 [999] - 휴식")
     pii=intinput(input())
     if pii==100:
@@ -399,4 +689,8 @@ while time<=기한:
         convi()
     elif pii==102:
         umamusume()
+    elif pii==108:
+        baccarat()
+    elif pii==999:
+        rest()
     day_by_day()
