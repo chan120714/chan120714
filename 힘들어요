@@ -271,7 +271,6 @@ def lotto(k):
     return a,pp
 
 
-
 def baccarat():
     global 자금
     print("-"*80)
@@ -285,7 +284,7 @@ def baccarat():
         print("[0] - 플레이어 \t [1] - 뱅커   \t [2] - 타이")
         print("[3] - 페어     \t [4] - 6-뱅커 \t [5] - 스몰")
         print("[6] - 빅       \t [100] - 설명 \t [999] - 그만하기")
-        k=intinput(input())
+        k=int(input())
         if k==100:
             print("플레이어 : 플레이어가 승리한다에 겁니다. 배율 2.0배")
             print("뱅커 : 뱅커가 승리한다에 겁니다. 배율 1.95배")
@@ -301,8 +300,8 @@ def baccarat():
         elif k==3:
             print("\n어느쪽에 거시겠습니까?")
             print("[0] - 뱅커 \t [1] - 플레이어")
-            qw=intinput(input())
-        p=intinput(input('걸 돈 입력'))
+            qw=int(input())
+        p=int(input('걸 돈 입력'))
         banker=[]
         player=[]
         bank=[]
@@ -474,6 +473,7 @@ def baccarat():
             else:
                 print('패배')
 
+
 def powerball():
     a=[]
     while len(a)!=5:
@@ -487,79 +487,7 @@ def powerball():
     return a
 def convi():
     global 소지물품,자금,lotto_buy
-    print(" "*25+"무엇을 구매def baccarat():
-    global 자금
-    print("-"*80)
-    print(" "*25+"★★ 바카라 ★★\n")
-    suit=['♠','◆','♥','♣']
-    numb=['A','2','3','4','5','6','7','8','9','10','J','Q','K']
-    deck=[i%52 for i in range(52*8)]
-    while True:
-        if len(deck)<6:
-            return
-        print("[0] - 플레이어 \t [1] - 뱅커   \t [2] - 타이")
-        print("[3] - 페어     \t [4] - 6-뱅커 \t [5] - 스몰")
-        print("[6] - 빅       \t [100] - 설명 \t [999] - 그만하기")
-        k=int(input())
-        if k==100:
-            print("플레이어 : 플레이어가 승리한다에 겁니다. 배율 2.0배")
-            print("뱅커 : 뱅커가 승리한다에 겁니다. 배율 1.95배")
-            print("타이 : 비긴다에 겁니다. 배율 9배")
-            print("페어 : 선택한 쪽의 최초 2장의 카드가 같은 숫자이다에 겁니다. 배율 12배")
-            print("6-뱅커 : 뱅커가 6으로 이긴다에 겁니다. 배율 13배")
-            print("스몰 : 4장만 받고 끝난다에 겁니다. 배율 2.5배")
-            print("빅 : 5~6장으로 끝난다에 겁니다. 배율 1.5배")
-            print("※주의 : 카드덱은 8덱으로 구성이 되어있으며,카드가 5장 이하로 남을시 종료됩니다.\n")
-            continue
-        elif k==999:
-            return
-        elif k==3:
-            print("\n어느쪽에 거시겠습니까?")
-            print("[0] - 뱅커 \t [1] - 플레이어")
-            qw=int(input())
-        p=int(input('걸 돈 입력'))
-        banker=[]
-        player=[]
-        bank=[]
-        play=[]
-        for i in range(2):
-            t=choice(deck)
-            banker.append(t)
-            ist=t%13
-            if ist>=9:
-                bank.append(0)
-            else:
-                bank.append(ist+1)
-            deck.remove(t)
-            t=choice(deck)
-            player.append(t)
-            ist=t%13
-            if ist>=9:
-                play.append(0)
-            else:
-                play.append(ist+1)
-            deck.remove(t)
-        for i in banker:
-            print(f"{suit[i//13]}{numb[i%13]}",end=' ')
-        print()
-        for i in player:
-            print(f"{suit[i//13]}{numb[i%13]}",end=' ')
-        print()
-        if k==3:
-            if qw==0 and len(list(set(bank)))==1:
-                print("승리 \t 배율 12배")
-                자금+=p*12
-            elif qw==1 and len(list(set(play)))==1:
-                print("승리 \t 배율 12배")
-                자금+=p*12
-            else:
-                print('패배')
-            continue
-
-def powerball():
-    a=[]
-    while len(a)!=5:
-        n=randint(1,69)할까?")
+    print(" "*25+"무엇을 구매할까?")
     print('[100] - 로또 6/45(1000) \t [101]-파워볼(2600)')
     print('[200] - 삼각김밥(1000) \t [201] - 라면(1000) \t [202] - 도시락(4500)')
     print("  			            		 [999] - 나가기")
@@ -680,7 +608,7 @@ while time<=기한:
     print(" "*25+'무엇을 할까?')
     print("[100] - 아르바이트 \t [101] - 편의점 \t [102] - 경마장")
     print("[103] - 병원       \t [104] - 마트   \t [105] - 은행")
-    print("[106] - 씻기       \t [107] - 먹기   \t [108] - 바카라")
+    print("[106] - 씻기       \t [107] - 먹기   \t [106] - 바카라")
     print("  			            		 [999] - 휴식")
     pii=intinput(input())
     if pii==100:
