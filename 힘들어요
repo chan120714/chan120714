@@ -323,11 +323,14 @@ def baccarat():
             else:
                 play.append(ist+1)
             deck.remove(t)
+        print("뱅커 : ",end='')
         for i in banker:
             print(f"{suit[i//13]}{numb[i%13]}",end=' ')
         print()
+        print('플레이어 :',end='')
         for i in player:
             print(f"{suit[i//13]}{numb[i%13]}",end=' ')
+        print()
         print()
         if k==3:
             if qw==0 and len(list(set(bank)))==1:
@@ -355,22 +358,24 @@ def baccarat():
             continue
         bnk=sum(bank)%10
         pl=sum(play)%10
-        if bnk>=8:
-            if k==0:
-                print('승리 \t 배율 2배')
-                자금+=ceil(p*2)
-            elif k==1:
+        if pl==bnk:
+            ''
+        elif bnk>=8:
+            if k==1:
+                print('승리 \t 배율 1.95배')
+                자금+=ceil(p*1.95)
+            elif k==0:
                 print('패배')
             elif k==2 and pl!=bnk:
                 print('패배')
             elif k==4:
                 print('패배')
             continue
-        if pl>=8:
-            if k==1:
-                print('승리 \t 배율 1.95배')
-                자금+=ceil(p*1.95)
-            elif k==0:
+        elif pl>=8:
+            if k==0:
+                print('승리 \t 배율 2배')
+                자금+=ceil(p*2)
+            elif k==1:
                 print('패배')
             elif k==2 and pl!=bnk:
                 print('패배')
@@ -395,7 +400,7 @@ def baccarat():
                 else:
                     bank.append(ist+1)
                 deck.remove(t)
-            elif bnk==3 and ist!=8:
+            elif bnk==3 and ist!=7:
                 t=choice(deck)
                 banker.append(t)
                 ist=t%13
@@ -405,7 +410,7 @@ def baccarat():
                     bank.append(ist+1)
                 deck.remove(t)
 
-            elif bnk==4 and ist!=0 and ist!=1 and ist!=8 and ist!=9:
+            elif bnk==4 and ist<9 and ist!=0 and ist!=7 and ist!=8:
                 t=choice(deck)
                 banker.append(t)
                 ist=t%13
@@ -415,7 +420,7 @@ def baccarat():
                     bank.append(ist+1)
                 deck.remove(t)
 
-            elif bnk==5 and 4<=ist<=7:
+            elif bnk==5 and 3<=ist<=6:
                 t=choice(deck)
                 banker.append(t)
                 ist=t%13
@@ -425,7 +430,7 @@ def baccarat():
                     bank.append(ist+1)
                 deck.remove(t)
 
-            elif bnk==6 and 6<=t<=7:
+            elif bnk==6 and 5<=t<=6:
                 t=choice(deck)
                 banker.append(t)
                 ist=t%13
@@ -443,9 +448,11 @@ def baccarat():
             else:
                 bank.append(ist+1)
             deck.remove(t)
+        print("뱅커 : ",end='')
         for i in banker:
             print(f"{suit[i//13]}{numb[i%13]}",end=' ')
         print()
+        print('플레이어 :',end='')
         for i in player:
             print(f"{suit[i//13]}{numb[i%13]}",end=' ')
         print()
@@ -461,17 +468,18 @@ def baccarat():
             if bnk==6 and t==4:
                 print('승리 \t 배율 13배')
                 자금+=ceil(p*13)
-            elif t==1:
+            elif k==1:
                 print('승리 \t 배율 1.95배')
                 자금+=ceil(p*1.95)
             else:
                 print('패배')
         else:
-            if t==0:
+            if k==0:
                 print('승리 \t 배율 2배')
                 자금+=ceil(p*2)
             else:
                 print('패배')
+
 
 
 def powerball():
