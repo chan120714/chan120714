@@ -19,6 +19,7 @@ def intinput(a):
         print('무언가 잘못되었습니다.')
         return intinput(input("다시 입력"))
     return int(t)
+#난이도 선택
 print("-"*80)
 print("    박지호인 내가 부자가 될 수 있을 리 없잖아,무리무리!(※무리가 아니었다?!)    ")
 print(" "*65+"ver 1.2.10")
@@ -98,6 +99,9 @@ while True:
     if tuy=="Y" or tuy=='y':
         break
 print(' '*32+"세팅중",end='')
+
+
+#터틀(경마장) 로딩
 p=[]
 for i in range(1):
     speed(1000)
@@ -240,14 +244,13 @@ def lotto(k):
     a=[]
     su=0
     pp=[0,0,0,0,0,0]
-    while len(a)!=7:
+    while len(a)!=6:
         n=randint(1,45)
         if n in a:
             continue
         else:
-            if len(a)==6:
-                a.sort()
-                break
+            a.append(n)
+    a.sort()
     for i in k:
         t=12-len(list(set(a+i)))
         if t==6:
@@ -268,7 +271,7 @@ def lotto(k):
             pp[4]+=1
         else:
             pp[5]+=1
-    return a,pp
+    return pp,su
 
 
 def baccarat():
@@ -284,7 +287,7 @@ def baccarat():
         print("[0] - 플레이어 \t [1] - 뱅커   \t [2] - 타이")
         print("[3] - 페어     \t [4] - 6-뱅커 \t [5] - 스몰")
         print("[6] - 빅       \t [100] - 설명 \t [999] - 그만하기")
-        k=int(input())
+        k=intinput(input())
         if k==100:
             print("플레이어 : 플레이어가 승리한다에 겁니다. 배율 2.0배")
             print("뱅커 : 뱅커가 승리한다에 겁니다. 배율 1.95배")
@@ -300,8 +303,17 @@ def baccarat():
         elif k==3:
             print("\n어느쪽에 거시겠습니까?")
             print("[0] - 뱅커 \t [1] - 플레이어")
-            qw=int(input())
-        p=int(input('걸 돈 입력'))
+            qw=intinput(input())
+        elif k>=7:
+            print('잘못된 입력')
+            continue
+        while True:
+            p=intinput(input('걸 돈 입력'))
+            if p>자금:
+                print('돈이 부족합니다.')
+            else:
+                자금-=p
+                break
         banker=[]
         player=[]
         bank=[]
@@ -494,16 +506,28 @@ def powerball():
     a.append(randint(1,26))
     return a
 def convi():
-    global 소지물품,자금,lotto_buy
+    global 소지물품,자금,lotto_buy,time_left
+    if time_left==1 and len(lotto_buy)!=0:
+        t,tst=lotto(lotto_buy)
+        time_left=0
+        lotto_buy=[]
+        for i in range(6):
+            if i<5:
+                print(f'{i+1}등 {t[i]}회')
+            else:
+                print(f'꽝 {t[i]}회')
+        print(f'당첨금 : {tst}원')
+        print()
     print(" "*25+"무엇을 구매할까?")
     print('[100] - 로또 6/45(1000) \t [101]-파워볼(2600)')
-    print('[200] - 삼각김밥(1000) \t [201] - 라면(1000) \t [202] - 도시락(4500)')
+    print('[200] - 삼각김밥(1000)  \t [201] - 라면(1000) \t [202] - 도시락(4500)')
     print("  			            		 [999] - 나가기")
+    tt=intinput(input())
     if tt==999:
         return
     if tt==100:
         print("몇 장 사시겠습니까?")
-        pp=intinput()
+        pp=intinput(input())
         if pp*1000<=자금:
             자금-=pp*1000
             for i in range(pp):
@@ -550,7 +574,7 @@ def rest():
     print()
 
 def day_by_day():
-    global tt,청결도,포만감,date,month,year,time,ti,피로도
+    global tt,청결도,포만감,date,month,year,time,ti,피로도,time_left,lotto_buy
     피로도+=1
     tt+=1
     청결도-=1
@@ -559,6 +583,8 @@ def day_by_day():
         time+=1
         tt=0
         ti+=1
+        if ti==6 and len(lotto_buy)!=0:
+            time_left=1
         if ti>6:
             ti=0
         print("하루가 지났다...")
@@ -586,6 +612,7 @@ lotto_buy=[]
 포만감=100
 청결도=5
 피로도=0
+time_left=0
 while time<=기한:
     print(f"{year}년 {month}월 {date}일 {hour[tt]}시 {주[ti]}요일 ({time}일째)",end='')
     if 기한==INF:
@@ -616,7 +643,7 @@ while time<=기한:
     print(" "*25+'무엇을 할까?')
     print("[100] - 아르바이트 \t [101] - 편의점 \t [102] - 경마장")
     print("[103] - 병원       \t [104] - 마트   \t [105] - 은행")
-    print("[106] - 씻기       \t [107] - 먹기   \t [106] - 바카라")
+    print("[106] - 씻기       \t [107] - 먹기   \t [108] - 바카라")
     print("  			            		 [999] - 휴식")
     pii=intinput(input())
     if pii==100:
