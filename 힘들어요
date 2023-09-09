@@ -21,7 +21,7 @@ def intinput(a):
     return int(t)
 print("-"*80)
 print("    박지호인 내가 부자가 될 수 있을 리 없잖아,무리무리!(※무리가 아니었다?!)    ")
-print(" "*65+"ver 1.2.10")
+print(" "*65+"ver 1.6.3")
 print("-"*80)
 print("[0] 힘세고 강한 시작")
 print("[1] 안하기")
@@ -66,7 +66,7 @@ while True:
         print("주의: 이난이도는 당신의 삶을 지옥으로 만들 것 입니다.")
         목표=10000000
         기한=60
-        자금=100000=0
+        자금=1000000
         if ttt==3:
             print("빢찌호",end='')
         elif ttt==4:
@@ -94,9 +94,10 @@ while True:
             기한=365
             자금=9000000
             print("EASY",end='')
-    print(" 이난이도가 맞으십니까? (Y/N)")
-    tuy=input()
-    if tuy=="Y" or tuy=='y':
+    print(" 이난이도가 맞으십니까?")
+    print('[0] - 맞아 \t [1] - 아니')
+    tuy=intinput(input())
+    if tuy==0:
         break
 print(' '*32+"세팅중",end='')
 p=[]
@@ -148,14 +149,81 @@ print("-"*80)
     '테슬라':245010,
     '엔비디아':485090
 }
+보유량={
+'애플':0,'삼성':0,'코스피':0,'코스닥':0,'나스닥':0,'테슬라':0,'엔비디아':0}
+주가=0
 
 def 주식갱신():
     for i in 주식:
         a=randint(-10,10)
         주식[i]*=(100+a)/100
         주식[i]=int(주식[i])
+def inc_buy():
+    global 주식,주가,자금,보유량
+    고유번호={100:'애플',101:'삼성',102:'코스피',103:'코스닥',104:'나스닥',105:'테슬라',106:'엔비디아'}
+    print('주식을 구매하시겠습니까?')
+    print(f"[100] - 애플 {주식['애플']} \t [101] - 삼성 {주식['삼성']}")
+    print(f"[102] - 코스피 {주식['코스피']} \t [103] - 코스닥 {주식['코스닥']}")
+    print(f"[104] - 나스닥 {주식['나스닥']} \t [105] - 테슬라 {주식['테슬라']}")
+    print(f"[106] - 엔비디아 {주식['엔비디아']} \t [999] - 나가기")
+    pii=int(input())
+    if pii==999:
+        return
+    elif pii<100 or pii>106:
+        print('잘못된입력')
+    else:
+        print('몇 주 매수 하시겠습니까?')
+        t=int(input())
+        if 주식[고유번호[pii]]*t<=자금:
+            print('구매완료')
+            보유량[고유번호[pii]]+=t
+            자금-=주식[고유번호[pii]]*t
+            주가+=주식[고유번호[pii]]*t
+        else:
+            print('돈이 부족합니다.')
+    return inc_buy()
 
 
+def inc_sell():
+    global 자금,주식,주가,보유량
+    고유번호={100:'애플',101:'삼성',102:'코스피',103:'코스닥',104:'나스닥',105:'테슬라',106:'엔비디아'}
+    가격=0
+    for i in  주식:
+        가격+=보유량[i]*주식[i]
+    if 주가==0:
+        주가=1
+        가격=1
+    while 1:
+        print(f"주식을 판매하시겠습니까? 현재 수익:{가격-주가}원 수익률:{(가격-주가)/주가*100}% ")
+        if 주가==1 and 가격==1:
+            주가=0
+            가격=0
+        print("[0] - 팔래 \t [1] - 아직아니야")
+        pl=int(input())
+        if pl==0:
+            for i in 보유량:
+                print(f'{i}:{보유량[i]}개 \t')
+            print(f"[100] - 애플 {주식['애플']}({보유량['애플']}개) \t [101] - 삼성 {주식['삼성']}({보유량['삼성']}개)")
+            print(f"[102] - 코스피 {주식['코스피']}({보유량['코스피']}개) \t [103] - 코스닥 {주식['코스닥']}({보유량['코스닥']}개)")
+            print(f"[104] - 나스닥 {주식['나스닥']}({보유량['나스닥']}개) \t [105] - 테슬라 {주식['테슬라']}({보유량['테슬라']}개)")
+            print(f"[106] - 엔비디아 {주식['엔비디아']}({보유량['엔비디아']}개) \t [999] - 나가기")
+            print("팔 주식을 입력해 주십시오")
+            pii=int(input())
+            if pii==999:
+                return
+            elif pii<100 or pii>106:
+                print('잘못된입력')
+            else:
+                print('몇 주 매도 하시겠습니까?')
+                t=int(input())
+                if 보유량[고유번호[pii]]>=t:
+                    print('매도완료')
+                    보유량[고유번호[pii]]-=t
+                    자금+=주식[고유번호[pii]]*t
+                    주가=가격
+            return inc_sell()
+        else:
+            return
 
         
 def umamusume():
@@ -250,9 +318,10 @@ def lotto(k):
         if n in a:
             continue
         else:
+            a.append(n)
             if len(a)==6:
                 a.sort()
-                break
+    n=a.pop()
     for i in k:
         t=12-len(list(set(a+i)))
         if t==6:
@@ -273,13 +342,13 @@ def lotto(k):
             pp[4]+=1
         else:
             pp[5]+=1
-    return a,pp
+    return su,pp
 
 
 def baccarat():
     global 자금
     print("-"*80)
-    print(" "*25+"★★ 바카라 ★★\n")
+    print(" "*32+"★★ 바카라 ★★\n")
     suit=['♠','◆','♥','♣']
     numb=['A','2','3','4','5','6','7','8','9','10','J','Q','K']
     deck=[i%52 for i in range(52*8)]
@@ -290,8 +359,13 @@ def baccarat():
         print("[0] - 플레이어 \t [1] - 뱅커   \t [2] - 타이")
         print("[3] - 페어     \t [4] - 6-뱅커 \t [5] - 스몰")
         print("[6] - 빅       \t [100] - 설명 \t [999] - 그만하기")
-        k=int(input())
+        k=intinput(input())
         if k==100:
+            print(" "*36+'게임룰\n')
+            print('플레이어와 뱅커중 누가더 9에 가까울지 예상을 하는 게임입니다.')
+            print('A는 1로, 10,J,Q,K는 0으로 계산됩니다.')
+            print()
+            print("-"*80)
             print("플레이어 : 플레이어가 승리한다에 겁니다. 배율 2.0배")
             print("뱅커 : 뱅커가 승리한다에 겁니다. 배율 1.95배")
             print("타이 : 비긴다에 겁니다. 배율 9배")
@@ -299,6 +373,7 @@ def baccarat():
             print("6-뱅커 : 뱅커가 6으로 이긴다에 겁니다. 배율 13배")
             print("스몰 : 4장만 받고 끝난다에 겁니다. 배율 2.5배")
             print("빅 : 5~6장으로 끝난다에 겁니다. 배율 1.5배")
+            print("-"*80)
             print("※주의 : 카드덱은 8덱으로 구성이 되어있으며,카드가 5장 이하로 남을시 종료됩니다.\n")
             continue
         elif k==999:
@@ -306,8 +381,14 @@ def baccarat():
         elif k==3:
             print("\n어느쪽에 거시겠습니까?")
             print("[0] - 뱅커 \t [1] - 플레이어")
-            qw=int(input())
-        p=int(input('걸 돈 입력'))
+            qw=intinput(input())
+        while 1:
+            p=intinput(input('얼마를 거시겠습니까?'))
+            if p>자금:
+                print("돈이 부족합니다.")
+            else:
+                자금-=p
+                break
         banker=[]
         player=[]
         bank=[]
@@ -491,43 +572,83 @@ def baccarat():
 def powerball(k):
     a=[]
     su=0
-    pp=[0,0,0,0,0,0]
-    while len(a)!=7:
-        n=randint(1,45)
+    pp=[0]*(10)
+    while len(a)!=5:
+        n=randint(1,69)
         if n in a:
             continue
         else:
-            if len(a)==6:
-                a.sort()
-                break
+            a.append(n)
+    a.sort()
+    n=randint(1,26)
     for i in k:
-        t=12-len(list(set(a+i)))
-        if t==6:
-            su+=1952160000
-            pp[0]+=1
-        elif t==5:
-            if n in i:
-                su+=54226666
-                pp[1]+=1
+        p=i.pop()
+        t=10-len(list(set(a+i)))
+        if t==5:
+            if n==p:
+                pp[0]+=1
+                su+=52000000000
             else:
-                su+=1427017
-                pp[2]+=1
+                pp[1]+=1
+                su+=1300000000
         elif t==4:
-            su+=50000
-            pp[3]+=1
+            if n==p:
+                pp[2]+=1
+                su+=65000000
+            else:
+                pp[3]+=1
+                su+=130000
         elif t==3:
-            su+=5000
-            pp[4]+=1
+            if n==p:
+                pp[4]+=1
+                su+=130000
+            else:
+                pp[5]+=1
+                su+=7*1300
+        elif n==p:
+            if t==2:
+                pp[6]+=1
+                su+=7*1300
+            elif t==1:
+                su+=5200
+                pp[7]+=1
+            else:
+                su+=5200
+                pp[8]+=1
         else:
-            pp[5]+=1
-    return a,pp
+            pp[9]+=1
+    return su,pp
 
 
 def convi():
-    global 소지물품,자금,lotto_buy,power_buy
+    global 소지물품,자금,lotto_buy,power_buy,당첨확인,복권
+    if 당첨확인==1:
+        당첨확인=0
+        if len(lotto_buy)!=0:
+            su,t=lotto(lotto_buy)
+            for i in range(6):
+                if i==5:
+                    print(f'꽝 :{t[i]}번')
+                    continue
+                print(f"{i+1}등 :{t[i]}번")
+            print(f'당첨금 : {su}원')
+            자금+=su
+        if len(power_buy)!=0:
+            su,t=powerball(power_buy)
+            for i in range(10):
+                if i==9:
+                    print(f'꽝 :{t[i]}번')
+                    continue
+                print(f"{i+1}등 :{t[i]}번")
+            print(f'당첨금 : {su}원')
+            자금+=su
+        lotto_buy=[]
+        power_buy=[]
+    print(f'소지금 : {자금}원')
     print(" "*25+"무엇을 구매할까?")
     print('[100] - 로또 6/45(1000) \t [101]-파워볼(2600)')
-    print('[200] - 삼각김밥(1000) \t [201] - 컵라면(1000) \t [202] - 도시락(4500)')
+    print('[200] - 삼각김밥(1500)  \t [201] - 컵라면(1000) \t [202] - 도시락(4500)')
+    print('[203] - 샌드위치(3000)')
     print("  			            		 [999] - 나가기")
     tt=intinput(input())
     if tt==999:
@@ -537,6 +658,7 @@ def convi():
         pp=intinput(input())
         if pp*1000<=자금:
             자금-=pp*1000
+            복권['로또']+=pp
             while 1:
                 tr=intinput(input(f"수동으로 몇 장 하시겠습니까? 최대 {min(pp,100)}장"))
                 if tr>min(pp,100):
@@ -557,6 +679,7 @@ def convi():
                         else:
                             a.append(k)
                             break
+                lotto_buy.append(a)
             for i in range(pp-tr):
                 a=[]
                 while len(a)!=6:
@@ -570,7 +693,7 @@ def convi():
                 lotto_buy.append(a)
         else:
             print("돈이부족합니다.")
-            convi()
+        convi()
     if tt==101:
         print("파워볼에 대한 설명이 필요하십니까?")
         print('[0] - 응 \t [1] - 아니')
@@ -581,6 +704,7 @@ def convi():
         print("몇 장 사시겠습니까?")
         pp=intinput(input())
         if pp*2600<=자금:
+            복권['파워볼']+=pp
             자금-=pp*2600
             while 1:
                 tr=intinput(input(f"수동으로 몇 장 하시겠습니까? 최대 {min(pp,100)}장"))
@@ -609,6 +733,7 @@ def convi():
                     else:
                         a.append(k)
                         break
+                power_buy.append(a)
             for i in range(pp-tr):
                 a=[]
                 while len(a)!=5:
@@ -617,11 +742,52 @@ def convi():
                         continue
                     else:
                         a.append(n)
-                        
-                lotto_buy.append(a)
+                a.append(randint(1,26))        
+                power_buy.append(a)
         else:
             print("돈이부족합니다.")
-            convi()
+        convi()
+    elif tt==200:
+        print("몇 개 사시겠습니까?")
+        pp=intinput(input())
+        if pp*1500<=자금:
+            자금-=pp*1500
+            소지물품['삼각김밥']+=pp
+        else:
+            print('돈이 부족합니다.')
+        convi()
+    elif tt==201:
+        print("몇 개 사시겠습니까?")
+        pp=intinput(input())
+        if pp*1000<=자금:
+            자금-=pp*1000
+            소지물품['컵라면']+=pp
+        else:
+            print('돈이 부족합니다.')
+        convi()
+    elif tt==202:
+        print("몇 개 사시겠습니까?")
+        pp=intinput(input())
+        if pp*4500<=자금:
+            자금-=pp*4500
+            소지물품['도시락']+=pp
+        else:
+            print('돈이 부족합니다.')
+        convi()
+    elif tt==203:
+        print("몇 개 사시겠습니까?")
+        pp=intinput(input())
+        if pp*3000<=자금:
+            자금-=pp*3000
+            소지물품['샌드위치']+=pp
+        else:
+            print('돈이 부족합니다.')
+        convi()
+    else:
+        print('잘못된 입력')
+        convi()
+
+        
             
 def keyboard():
     global 자금
@@ -644,28 +810,35 @@ def keyboard():
 
 
 def rest():
-    global 피로도
+    global 피로도,게임기,침대
     피로도=max(피로도-5,-1)
+    if 게임기==1:
+        피로도=max(피로도-1,-1)
+    if 침대==1:
+        피로도=max(피로도-2,-1)
     print("휴식을 취했다",end='')
     for i in range(3):
-        sleep(0.3)
+        sleep(0.1)
         print('.',end='')
     print()
 
 def day_by_day():
-    global tt,청결도,포만감,date,month,year,time,ti,피로도
+    global tt,청결도,포만감,date,month,year,time,ti,피로도,당첨확인
     피로도+=1
     tt+=1
     청결도-=1
-    포만감-=20
+    포만감-=15
     if tt>3:
         time+=1
         tt=0
         ti+=1
         if ti>6:
             ti=0
+        주식갱신()
         print("하루가 지났다...")
         date+=1
+        if ti==6:
+            당첨확인=1
     if date>일[month-1]:
         date=1
         month+=1
@@ -674,18 +847,129 @@ def day_by_day():
         year+=1
 
 def shower():
+    global 청결도
     print('-'*80)
     print(" "*25+'몸을 씻었다...')
+    print('-'*80)
     청결도=6
 
 def market():
-    global 자금,소지물품
-    print('[100] - 스테이크 밀키트(30000)(1인용) \t [101] - 돼지고기 주물럭 (15000)(4인용)')
+    global 자금,소지물품,침대
+    print('[100] - 스테이크 밀키트(30000)(1인용) \t [101] - 돼지고기 주물럭 (15000)(2인용)')
     print('[102] - 배추김치 (21000) (20개입)     \t [103] - 샐러드(5000)(1개입)')
-    print('[104] - 마라탕 밀키트 (15000)(2인용)  \t [105] - 김밥(3000)(1줄)')
-    print('[106] - ')
+    print('[104] - 마라탕 밀키트 (15000)(2인용)  \t [105] - 김밥(4000)(1줄)')
+    if 소지물품['게임기']==0:
+        print('[106] - 게임기(250000)                \t ')
+    if 침대==0:
+        print('[107] - 편안한 침대(1000000)')
     return
 
+
+def sushi():
+    global 자금,포만감
+    가격={100:100000,101:100000,102:250000,103:20000}
+    메뉴={100:'초밥 A코스',101:'초밥 B코스',102:'오마카세',103:'오늘의 가성비 초밥'}
+    print("-"*80)
+    print(" "*14+"★★ 대단히 엄청나게 유명하고 맛있는 초밥집 ★★\n")
+    print()
+    print(" "*32+"이랏샤이마세!")
+    print('[100] - 초밥 A코스(100000) \t [101] - 초밥 B코스(100000)')
+    print('[102] - 오마카세(250000)   \t [103] - 오늘의 가성비 초밥(20000)')
+    print('[999] - 시식만 하고 나가기')
+    while 1:
+        pii=intinput(input())
+        if pii==999:
+            print("제작자의 배려로 당신은 초밥을 먹었습니다.")
+            print("양심의 가책 +1")
+            print('포만감 +15')
+            print()
+            포만감+=15
+            return
+        elif pii<100 or pii>104:
+            print("잘못된 입력")
+        else:
+            if 가격[pii]<=자금:
+                print(f'{메뉴[pii]}를 먹었다...천상의 맛이다.')
+                if pii==102:
+                    피로도=max(-1,피로도-8)
+                    포만감+=500
+                    print('일주일은 안먹어도 될것같다.')
+                elif pii==103:
+                    포만감+=150
+                else:
+                    피로도=max(-1,피로도-4)
+                    포만감+=300
+                return
+            else:
+                print('돈이 부족합니다.')
+def eat():
+    global 소지물품,포만감
+    소지번호={'삼각김밥':100,'컵라면':101,'도시락':102,'샌드위치':103,
+      '스테이크 키트':104,'돼지고기 주물럭':105,'마라탕':106,'김밥':107}
+    포만도={'삼각김밥':20,'컵라면':15,'도시락':50,'샌드위치':30,
+      '스테이크 키트':200,'돼지고기 주물럭':75,'마라탕':75,'김밥':40,'배추김치':5,'샐러드':60}
+    liner=0
+    소지=0
+    print(f'현재 포만감:{포만감}')
+    print('무엇을 먹을까?')
+    for i in 소지번호:
+        if 소지물품[i]!=0:
+            소지=1
+            liner+=1
+            print(f'[{소지번호[i]}] - {i}:{소지물품[i]}개(포만도:{포만도[i]})',end=' ')
+        if liner==2:
+            print()
+            liner=0
+    if 소지==0 or liner==0:
+        print('[999] - 나가기')
+    else:
+        print('\n[999] - 나가기')
+    while 1:
+        pii=intinput(input('먹으실 번호를 눌러주십시오'))
+        if pii==999:
+            return
+        t=0
+        for i in 소지번호:
+            if pii==소지번호[i]:
+                t=1
+                if 소지물품[i]!=0:
+                    print(f'{i} 을(를) 드시겠습니까?')
+                    print('[0] - 먹는다 \t [1] - 먹지않는다')
+                    pii=intinput(input())
+                    if pii==0:
+                        소지물품[i]-=1
+                        if 소지물품['배추김치']!=0 or 소지물품['샐러드']!=0:
+                            print("무엇을 곁들여 드시겠습니까?")
+                            if 소지물품['배추김치']!=0:
+                                print(f"[100] - 김치:{소지물품['배추김치']}개(포만도:{포만도['배추김치']})",end=' \t ')
+                            if 소지물품['샐러드']!=0:
+                                print(f"[101] - 샐러드:{소지물품['샐러드']}개(포만도:{포만도['샐러드']})",end=' \t ')
+                            print('[102] - 곁들여 먹지 않는다')
+                            while True:
+                                er=intinput(input())
+                                if 100<=er<=102:
+                                    break
+                                else:
+                                    print('잘못된 입력')
+                            if er==101 and 소지물품['샐러드']!=0:
+                                소지물품['샐러드']-=1
+                                포만감+=포만도[i]+60
+                                print(f"{i}을(를) 샐러드와 먹었다... 포만감+{포만도[i]+60}")
+                            elif er==100 and 소지물품['배추김치']!=0:
+                                소지물품['배추김치']-=1
+                                포만감+=포만도[i]+5
+                                print(f"{i}을(를) 김치와 먹었다...포만감+{포만도[i]+5}")
+                            else:
+                                print(f"{i}을(를) 먹었다...포만감+{포만도[i]}")
+                                포만감+=포만도[i]
+                                
+                                
+                else:
+                    print('해당 물품은 가지고 있지 않습니다.')
+        if t==0:
+            print('해당 물품이 존재하지 않습니다.')
+        return eat()
+                
 일=[31,28,31,30,31,30,31,31,30,31,30,31]
 주=['월','화','수','목','금','토','일']
 년=1
@@ -696,13 +980,17 @@ time=1
 hour=[12,15,18,21]
 tt=0
 ti=0
-소지물품={'로또':0,'파워볼':0,'삼각김밥':0,'컵라면':0,'도시락':0,'샌드위치':0,
-      '소고기':0,'돼지고기':0,'게임기':0}
+복권={'로또':0,'파워볼':0}
+소지물품={'삼각김밥':1,'컵라면':2,'도시락':0,'샌드위치':0,
+      '스테이크 키트':0,'돼지고기 주물럭':0,'마라탕':0,'배추김치':3,'샐러드':0,'김밥':0}
 lotto_buy=[]
 power_buy=[]
 포만감=100
 청결도=5
 피로도=0
+침대=0
+게임기=0
+당첨확인=0
 while time<=기한:
     print(f"{year}년 {month}월 {date}일 {hour[tt]}시 {주[ti]}요일 ({time}일째)",end='')
     if 기한==INF:
@@ -717,26 +1005,37 @@ while time<=기한:
     print("-"*80)
     print("보유아이템:",end='')
     소지=0
+    liner=0
+    for i in 복권:
+        if 복권[i]!=0:
+            liner+=1
+            소지=1
+            print(f'{i}: {복권[i]}개',end=' ')
     for i in 소지물품:
         if 소지물품[i]!=0:
+            liner+=1
             소지=1
             print(f'{i}:{소지물품[i]}개',end=' ')
+        if liner==3:
+            print()
+            liner=0
     if 소지==0:
         print('없음')
     print()
     print('-'*80)
     print(' ' *25+"스테이터스")
     print(f"포만감 - {포만감} \t 청결도 - {청결도}")
-    print("(포만감이 -100 이하인경우, 청결도가 -8인 이하인 경우 턴 종료이후 사망합니다.")
-    print(f'피로도 - {피로도} (피로도가 10이상인경우 해당턴에 무조건 휴식이 진행됩니다.')
+    print("(포만감이 -100 이하인경우, 청결도가 -8인 이하인 경우 턴 종료이후 사망합니다.)")
+    print(f'피로도 - {피로도} (피로도가 10이상인경우 해당턴에 무조건 휴식이 진행됩니다.)')
     if 피로도>=10:
         rest()
         day_by_day()
         continue
     print(" "*25+'무엇을 할까?')
-    print("[100] - 아르바이트 \t [101] - 편의점 \t [102] - 경마장")
-    print("[103] - 병원       \t [104] - 마트   \t [105] - 은행")
-    print("[106] - 씻기       \t [107] - 먹기   \t [106] - 바카라")
+    print("[100] - 아르바이트* \t [101] - 편의점* \t [102] - 경마장*")
+    print("[103] - 주식구매    \t [104] - 마트   \t [105] - 은행")
+    print("[106] - 씻기*       \t [107] - 먹기*   \t [108] - 바카라*")
+    print("[109] - 초밥집      \t [110] - 주식판매")
     print("  			            		 [999] - 휴식")
     pii=intinput(input())
     if pii==100:
@@ -745,10 +1044,18 @@ while time<=기한:
         convi()
     elif pii==102:
         umamusume()
+    elif pii==103:
+        inc_buy()
     elif pii==106:
         shower()
+    elif pii==107:
+        eat()
     elif pii==108:
         baccarat()
+    elif pii==109:
+        sushi()
+    elif pii==110:
+        inc_sell()
     elif pii==999:
         rest()
     day_by_day()
