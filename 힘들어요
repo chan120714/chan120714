@@ -10,6 +10,97 @@ import sys
 sys.setrecursionlimit(1000000)
 sys.set_int_max_str_digits(1000000)
 INF=1e10
+년=1
+year=1
+month=1
+date=1
+time=1
+hour=[12,15,18,21]
+tt=0
+ti=0
+자금=0
+목표=0
+기한=0
+복권={'로또':0,'파워볼':0}
+소지물품={'삼각김밥':1,'컵라면':2,'도시락':0,'샌드위치':0,
+      '스테이크 키트':0,'돼지고기 주물럭':0,'마라탕':0,'배추김치':3,'샐러드':0,'김밥':0}
+lotto_buy=[]
+power_buy=[]
+포만감=100
+청결도=5
+피로도=0
+침대=0
+게임기=0
+당첨확인=0
+주식={
+    '애플':180000,
+    '삼성':70000,
+    '코스피':2500,
+    '코스닥':900,
+    '나스닥':14000,
+    '테슬라':245010,
+    '엔비디아':485090
+}
+보유량={
+'애플':0,'삼성':0,'코스피':0,'코스닥':0,'나스닥':0,'테슬라':0,'엔비디아':0}
+def load():
+    global 년,year,month,date,time,tt,ti,복권,소지물품,lotto_buy,power_buy,포만감,청결도,피로도,침대,게임기,당첨확인,주식,보유량,자금,목표,기한
+    with open('loading.txt') as p:
+        k=p.read().split('\n')
+    년=int(k[1])
+    year=int(k[2])
+    month=int(k[3])
+    date=int(k[4])
+    time=int(k[5])
+    tt=int(k[6])
+    ti=int(k[7])
+    복권['로또']=int(k[8])
+    복권['파워볼']=int(k[9])
+    tu=10
+    for i in 소지물품:
+        소지물품[i]=int(k[tu])
+        tu+=1
+    tu+=1
+    for i in range(int(k[tu-1])):
+        ist=k[tu].split()
+        pp=[]
+        for i in ist:
+            pp.append(int(i))
+        lotto_buy.append(pp)
+        tu+=1
+    tu+=1
+    for i in range(int(k[tu-1])):
+        ist=k[tu].split()
+        pp=[]
+        for i in ist:
+            pp.append(int(i))
+        power_buy.append(pp)
+        tu+=1
+    포만감=int(k[tu])
+    tu+=1
+    청결도=int(k[tu])
+    tu+=1
+    피로도=int(k[tu])
+    tu+=1
+    침대=int(k[tu])
+    tu+=1
+    게임기=int(k[tu])
+    tu+=1
+    당첨확인=int(k[tu])
+    tu+=1
+    for i in 주식:
+        주식[i]=int(k[tu])
+        tu+=1
+    for i in 보유량:
+        보유량[i]=int(k[tu])
+        tu+=1
+    자금=int(k[tu])
+    tu+=1
+    목표=int(k[tu])
+    tu+=1
+    기한=int(k[tu])
+    tu+=1
+    p.close()
 def intinput(a):
     t=''
     for i in a:
@@ -21,84 +112,92 @@ def intinput(a):
     return int(t)
 print("-"*80)
 print("    박지호인 내가 부자가 될 수 있을 리 없잖아,무리무리!(※무리가 아니었다?!)    ")
-print(" "*65+"ver 1.6.3")
+print(" "*65+"ver 1.9.1")
 print("-"*80)
 print("[0] 힘세고 강한 시작")
-print("[1] 안하기")
-ttt=intinput(input())
-if ttt==1:
+print("[1] 불러오기")
+print("[2] 안하기")
+while 1:
+    ttt=intinput(input())
+    if ttt>2:
+        print('잘못된 입력')
+    else:
+        break
+if ttt==2:
     print("프로그램을 종료합니다.")
     exit()
-
-print("-"*80)
-print(' '*25+"설명을 들으시겠습니까?")
-print("[0] 듣기")
-print("[1] 안듣기")
-ttt=intinput(input())
-if ttt==0:
-    print("박지호로 돈을버는 게임입니다.")
-    print("하루는 4턴으로 구성되어 있으며,각 턴마다 행동을 선택할 수 있습니다.")
-    print("")
-    print('-'*80)
-while True:
+if ttt==1:
+    load()
+else:
     print("-"*80)
-    print(" "*25+"★★ 모드를 선택해 주세요 ★★\n")
-    print("-"*80)
-    print("[0] EASY")
-    print("[1] NORMAL")
-    print("[2] ENDLESS")
-    print("[3] 빢찌호(하드모드)")
-    print("[4] 빡빢찌호")
-    print("[5] 빢빢찌호")
-    print("[6] HELP(설명)")
+    print(' '*25+"설명을 들으시겠습니까?")
+    print("[0] 듣기")
+    print("[1] 안듣기")
     ttt=intinput(input())
-    if ttt==6:
+    if ttt==0:
+        print("박지호로 돈을버는 게임입니다.")
+        print("하루는 4턴으로 구성되어 있으며,각 턴마다 행동을 선택할 수 있습니다.")
+        print("")
+        print('-'*80)
+    while True:
         print("-"*80)
-        print("EASY : 이재용아들모드.기한있음")
-        print("NORMAL : 보통 플레이 지향. 기한있음")
-        print("ENDLESS : 시간 빌게이츠 지향. 기한없음")
-        print("빢찌호 : 한국인 모드. 기한있음")
-        print("빡빢찌호: 빢찌호 하드모드.기한있음")
-        print("빢빢찌호: 빢찌호 하드모드.기한없음")
+        print(" "*25+"★★ 모드를 선택해 주세요 ★★\n")
         print("-"*80)
-        continue
-    elif ttt>=3:
-        print("주의: 이난이도는 당신의 삶을 지옥으로 만들 것 입니다.")
-        목표=10000000
-        기한=60
-        자금=1000000
-        if ttt==3:
-            print("빢찌호",end='')
-        elif ttt==4:
-            print("빡빢찌호",end='')
-            자금=0
-            목표+=10000000
-        else:
-            자금=0
-            목표=INF*INF
-            print("빢빢찌호",end='')
-            기한=INF
-    else:
-        if ttt==2:
-            목표=INF*INF
-            기한=INF
-            자금=1000000
-            print("ENDLESS",end='')
-        elif ttt==1:
+        print("[0] EASY")
+        print("[1] NORMAL")
+        print("[2] ENDLESS")
+        print("[3] 빢찌호(하드모드)")
+        print("[4] 빡빢찌호")
+        print("[5] 빢빢찌호")
+        print("[6] HELP(설명)")
+        ttt=intinput(input())
+        if ttt==6:
+            print("-"*80)
+            print("EASY : 이재용아들모드.기한있음")
+            print("NORMAL : 보통 플레이 지향. 기한있음")
+            print("ENDLESS : 시간 빌게이츠 지향. 기한없음")
+            print("빢찌호 : 한국인 모드. 기한있음")
+            print("빡빢찌호: 빢찌호 하드모드.기한있음")
+            print("빢빢찌호: 빢찌호 하드모드.기한없음")
+            print("-"*80)
+            continue
+        elif ttt>=3:
+            print("주의: 이난이도는 당신의 삶을 지옥으로 만들 것 입니다.")
             목표=10000000
-            기한=365
+            기한=60
             자금=1000000
-            print("NORMAL",end='')
+            if ttt==3:
+                print("빢찌호",end='')
+            elif ttt==4:
+                print("빡빢찌호",end='')
+                자금=0
+                목표+=10000000
+            else:
+                자금=0
+                목표=INF*INF
+                print("빢빢찌호",end='')
+                기한=INF
         else:
-            목표=10000000
-            기한=365
-            자금=9000000
-            print("EASY",end='')
-    print(" 이난이도가 맞으십니까?")
-    print('[0] - 맞아 \t [1] - 아니')
-    tuy=intinput(input())
-    if tuy==0:
-        break
+            if ttt==2:
+                목표=INF*INF
+                기한=INF
+                자금=1000000
+                print("ENDLESS",end='')
+            elif ttt==1:
+                목표=10000000
+                기한=365
+                자금=1000000
+                print("NORMAL",end='')
+            else:
+                목표=10000000
+                기한=365
+                자금=9000000
+                print("EASY",end='')
+        print(" 이난이도가 맞으십니까?")
+        print('[0] - 맞아 \t [1] - 아니')
+        tuy=intinput(input())
+        if tuy==0:
+            break
 print(' '*32+"세팅중",end='')
 p=[]
 for i in range(1):
@@ -140,17 +239,6 @@ sleep(0.7)
 print()
 print(' '*32+"세팅완료")
 print("-"*80)
-주식={
-    '애플':180000,
-    '삼성':70000,
-    '코스피':2500,
-    '코스닥':900,
-    '나스닥':14000,
-    '테슬라':245010,
-    '엔비디아':485090
-}
-보유량={
-'애플':0,'삼성':0,'코스피':0,'코스닥':0,'나스닥':0,'테슬라':0,'엔비디아':0}
 주가=0
 
 def 주식갱신():
@@ -644,6 +732,8 @@ def convi():
             자금+=su
         lotto_buy=[]
         power_buy=[]
+        복권['로또']=0
+        복권['파워볼']=0
     print(f'소지금 : {자금}원')
     print(" "*25+"무엇을 구매할까?")
     print('[100] - 로또 6/45(1000) \t [101]-파워볼(2600)')
@@ -654,8 +744,11 @@ def convi():
     if tt==999:
         return
     if tt==100:
-        print("몇 장 사시겠습니까?")
+        print(f"몇 장 사시겠습니까? 최대{2000-복권['로또']}장")
         pp=intinput(input())
+        if pp>2000-복권['로또']:
+            print("인생한방을 지양하는 삶을 추구합시다.")
+            return convi()
         if pp*1000<=자금:
             자금-=pp*1000
             복권['로또']+=pp
@@ -843,7 +936,7 @@ def day_by_day():
         date=1
         month+=1
     if month>12:
-        month=1999
+        month=1
         year+=1
 
 def shower():
@@ -859,14 +952,14 @@ def market():
     print('[102] - 배추김치 (21000) (20개입)     \t [103] - 샐러드(5000)(1개입)')
     print('[104] - 마라탕 밀키트 (15000)(2인용)  \t [105] - 김밥(4000)(1줄)')
     if 소지물품['게임기']==0:
-        print('[106] - 게임기(250000)                \t ')
+        print('[106] - 게임기(250000)            \t ')
     if 침대==0:
         print('[107] - 편안한 침대(1000000)')
     return
 
 
 def sushi():
-    global 자금,포만감
+    global 자금,포만감,피로도
     가격={100:100000,101:100000,102:250000,103:20000}
     메뉴={100:'초밥 A코스',101:'초밥 B코스',102:'오마카세',103:'오늘의 가성비 초밥'}
     print("-"*80)
@@ -962,35 +1055,80 @@ def eat():
                             else:
                                 print(f"{i}을(를) 먹었다...포만감+{포만도[i]}")
                                 포만감+=포만도[i]
-                                
+                            print("-"*80)
                                 
                 else:
                     print('해당 물품은 가지고 있지 않습니다.')
         if t==0:
             print('해당 물품이 존재하지 않습니다.')
         return eat()
-                
+def saving():
+    p=open('loading.txt','w')
+    p.write(str(datetime.now()))
+    p.write('\n')
+    p.write(str(년))
+    p.write('\n')
+    p.write(str(year))
+    p.write('\n')
+    p.write(str(month))
+    p.write('\n')
+    p.write(str(date))
+    p.write('\n')
+    p.write(str(time))
+    p.write('\n')
+    p.write(str(tt))
+    p.write('\n')
+    p.write(str(ti))
+    p.write('\n')
+    for i in 복권:
+        p.write(str(복권[i]))
+        p.write('\n')
+    for i in 소지물품:
+        p.write(str(소지물품[i]))
+        p.write('\n')
+    p.write(str(len(lotto_buy)))
+    p.write('\n')
+    for i in range(len(lotto_buy)):
+        for j in lotto_buy[i]:
+            p.write(str(j))
+            p.write(' ')
+        p.write('\n')
+    p.write(str(len(power_buy)))
+    p.write('\n')
+    for i in range(len(power_buy)):
+        for j in power_buy[i]:
+            p.write(str(j))
+            p.write(' ')
+        p.write('\n')
+    p.write(str(포만감))
+    p.write('\n')
+    p.write(str(청결도))
+    p.write('\n')
+    p.write(str(피로도))
+    p.write('\n')
+    p.write(str(침대))
+    p.write('\n')
+    p.write(str(게임기))
+    p.write('\n')
+    p.write(str(당첨확인))
+    p.write('\n')
+    for i in 주식:
+        p.write(str(주식[i]))
+        p.write('\n')
+    for i in 보유량:
+        p.write(str(보유량[i]))
+        p.write('\n')
+    p.write(str(자금))
+    p.write('\n')
+    p.write(str(목표))
+    p.write('\n')
+    p.write(str(기한))
+    p.write('\n')
+    p.close()
+
+    
 일=[31,28,31,30,31,30,31,31,30,31,30,31]
 주=['월','화','수','목','금','토','일']
-년=1
-year=1
-month=1
-date=1
-time=1
-hour=[12,15,18,21]
-tt=0
-ti=0
-복권={'로또':0,'파워볼':0}
-소지물품={'삼각김밥':1,'컵라면':2,'도시락':0,'샌드위치':0,
-      '스테이크 키트':0,'돼지고기 주물럭':0,'마라탕':0,'배추김치':3,'샐러드':0,'김밥':0}
-lotto_buy=[]
-power_buy=[]
-포만감=100
-청결도=5
-피로도=0
-침대=0
-게임기=0
-당첨확인=0
 while time<=기한:
     print(f"{year}년 {month}월 {date}일 {hour[tt]}시 {주[ti]}요일 ({time}일째)",end='')
     if 기한==INF:
@@ -1024,18 +1162,19 @@ while time<=기한:
     print()
     print('-'*80)
     print(' ' *25+"스테이터스")
-    print(f"포만감 - {포만감} \t 청결도 - {청결도}")
-    print("(포만감이 -100 이하인경우, 청결도가 -8인 이하인 경우 턴 종료이후 사망합니다.)")
-    print(f'피로도 - {피로도} (피로도가 10이상인경우 해당턴에 무조건 휴식이 진행됩니다.)')
+    print(f"포만감 : {포만감} \t 청결도 : {청결도}")
+    print("(포만감이 -100 이하인경우, 청결도가 -8 이하인 경우 턴 종료이후 사망합니다.)")
+    print(f'피로도 : {피로도} (피로도가 10이상인경우 해당턴에 무조건 휴식이 진행됩니다.)')
     if 피로도>=10:
         rest()
         day_by_day()
         continue
     print(" "*25+'무엇을 할까?')
-    print("[100] - 아르바이트* \t [101] - 편의점* \t [102] - 경마장*")
-    print("[103] - 주식구매    \t [104] - 마트   \t [105] - 은행")
-    print("[106] - 씻기*       \t [107] - 먹기*   \t [108] - 바카라*")
-    print("[109] - 초밥집      \t [110] - 주식판매")
+    print("[100] - 아르바이트* \t [101] - 편의점*   \t [102] - 경마장*")
+    print("[103] - 주식구매    \t [104] - 마트      \t [105] - 은행")
+    print("[106] - 씻기*       \t [107] - 먹기*     \t [108] - 바카라*")
+    print("[109] - 초밥집      \t [110] - 주식판매  \t [200] - 저장하기")
+    print("[300] - 불러오기")
     print("  			            		 [999] - 휴식")
     pii=intinput(input())
     if pii==100:
@@ -1056,6 +1195,51 @@ while time<=기한:
         sushi()
     elif pii==110:
         inc_sell()
+    elif pii==200:
+        print('정말 세이브 하시겠습니까?')
+        with open('loading.txt') as p:
+            k=p.read().split('\n')
+            print(f'최근 저장:{k[0]}')
+        p.close()
+        print("[0] - 저장한다 \t [1] - 안한다")
+        while 1:
+            ttt=intinput(input())
+            if ttt>1:
+                print("잘못된 입력")
+            else:
+                break
+        if ttt==0:
+            saving()
+        continue
+    elif pii==300:
+        print('정말 로드 하시겠습니까?')
+        with open('loading.txt') as p:
+            k=p.read().split('\n')
+            print(f'최근 저장:{k[0]}')
+        p.close()
+        print("[0] - 불러온다 \t [1] - 안한다")
+        while 1:
+            ttt=intinput(input())
+            if ttt>1:
+                print("잘못된 입력")
+            else:
+                break
+        if ttt==0:
+            load()
+        continue
     elif pii==999:
         rest()
     day_by_day()
+    if 포만감<=-100:
+        print("아사하였다...")
+        break
+    if 청결도<=-8:
+        print("안 씻어 사망하였다...")
+        break
+if 목표-자금<=0:
+    print("축하드립니다!")
+    print("엔딩을 보는것에 성공하셨습니다.")
+    print("해당세이브로 무한모드를 진행할 수 있습니다. 하시겠습니까?:)")
+    기한=1e14
+    목표=1e20
+    saving()
