@@ -7,9 +7,12 @@ from decimal import*
 from time import*
 from datetime import*
 import sys
+import os
 sys.setrecursionlimit(1000000)
 sys.set_int_max_str_digits(1000000)
 INF=1e10
+a=['loading1.txt','loading2.txt','loading3.txt','loading4.txt','loading5.txt',
+   'loading6.txt','loading7.txt','loading8.txt','loading9.txt','loading10.txt']
 년=1
 year=1
 month=1
@@ -43,9 +46,9 @@ power_buy=[]
 }
 보유량={
 '애플':0,'삼성':0,'코스피':0,'코스닥':0,'나스닥':0,'테슬라':0,'엔비디아':0}
-def load():
-    global 년,year,month,date,time,tt,ti,복권,소지물품,lotto_buy,power_buy,포만감,청결도,피로도,침대,게임기,당첨확인,주식,보유량,자금,목표,기한
-    with open('loading.txt') as p:
+def load(n):
+    global 년,year,month,date,time,tt,ti,복권,소지물품,lotto_buy,power_buy,포만감,청결도,피로도,침대,게임기,당첨확인,주식,보유량,자금,목표,기한,a
+    with open(a[n]) as p:
         k=p.read().split('\n')
     년=int(k[1])
     year=int(k[2])
@@ -112,7 +115,7 @@ def intinput(a):
     return int(t)
 print("-"*80)
 print("    박지호인 내가 부자가 될 수 있을 리 없잖아,무리무리!(※무리가 아니었다?!)    ")
-print(" "*65+"ver 1.9.1")
+print(" "*65+"ver 1.10.0")
 print("-"*80)
 print("[0] 힘세고 강한 시작")
 print("[1] 불러오기")
@@ -1062,8 +1065,8 @@ def eat():
         if t==0:
             print('해당 물품이 존재하지 않습니다.')
         return eat()
-def saving():
-    p=open('loading.txt','w')
+def saving(n):
+    p=open(a[n],'w')
     p.write(str(datetime.now()))
     p.write('\n')
     p.write(str(년))
@@ -1196,24 +1199,31 @@ while time<=기한:
     elif pii==110:
         inc_sell()
     elif pii==200:
-        print('정말 세이브 하시겠습니까?')
-        with open('loading.txt') as p:
-            k=p.read().split('\n')
-            print(f'최근 저장:{k[0]}')
-        p.close()
-        print("[0] - 저장한다 \t [1] - 안한다")
+        print('최근 저장파일')
+        for i in range(10):
+            print(f'[{i}]:',end='')
+            if os.path.isfile(a[i])==False:
+                print('-'*20)
+                continue
+            with open(a[i]) as p:
+                k=p.read().split('\n')
+                print(f'최근 저장:{k[0]}')
+            p.close()
+        print('[999] - 저장하지 않고 나간다.\n')
+        print('저장할 파일의 번호를 누르시오')
         while 1:
             ttt=intinput(input())
-            if ttt>1:
+            if ttt>10 and ttt!=999:
                 print("잘못된 입력")
             else:
                 break
-        if ttt==0:
-            saving()
+        if ttt==999:
+            continue
+        saving(ttt)
         continue
     elif pii==300:
         print('정말 로드 하시겠습니까?')
-        with open('loading.txt') as p:
+        with open(a[0]) as p:
             k=p.read().split('\n')
             print(f'최근 저장:{k[0]}')
         p.close()
