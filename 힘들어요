@@ -562,6 +562,55 @@ def lotto(k):
         else:
             pp[5]+=1
     return su,pp
+def powerball(k):
+    a=[]
+    su=0
+    pp=[0]*(10)
+    while len(a)!=5:
+        n=randint(1,69)
+        if n in a:
+            continue
+        else:
+            a.append(n)
+    a.sort()
+    n=randint(1,26)
+    for i in k:
+        p=i.pop()
+        t=10-len(list(set(a+i)))
+        if t==5:
+            if n==p:
+                pp[0]+=1
+                su+=52000000000
+            else:
+                pp[1]+=1
+                su+=1300000000
+        elif t==4:
+            if n==p:
+                pp[2]+=1
+                su+=65000000
+            else:
+                pp[3]+=1
+                su+=130000
+        elif t==3:
+            if n==p:
+                pp[4]+=1
+                su+=130000
+            else:
+                pp[5]+=1
+                su+=7*1300
+        elif n==p:
+            if t==2:
+                pp[6]+=1
+                su+=7*1300
+            elif t==1:
+                su+=5200
+                pp[7]+=1
+            else:
+                su+=5200
+                pp[8]+=1
+        else:
+            pp[9]+=1
+    return su,pp
 
 def bank_renew():
     global 저축,대출
@@ -829,56 +878,6 @@ def baccarat():
                 print('패배')
 
 
-
-def powerball(k):
-    a=[]
-    su=0
-    pp=[0]*(10)
-    while len(a)!=5:
-        n=randint(1,69)
-        if n in a:
-            continue
-        else:
-            a.append(n)
-    a.sort()
-    n=randint(1,26)
-    for i in k:
-        p=i.pop()
-        t=10-len(list(set(a+i)))
-        if t==5:
-            if n==p:
-                pp[0]+=1
-                su+=52000000000
-            else:
-                pp[1]+=1
-                su+=1300000000
-        elif t==4:
-            if n==p:
-                pp[2]+=1
-                su+=65000000
-            else:
-                pp[3]+=1
-                su+=130000
-        elif t==3:
-            if n==p:
-                pp[4]+=1
-                su+=130000
-            else:
-                pp[5]+=1
-                su+=7*1300
-        elif n==p:
-            if t==2:
-                pp[6]+=1
-                su+=7*1300
-            elif t==1:
-                su+=5200
-                pp[7]+=1
-            else:
-                su+=5200
-                pp[8]+=1
-        else:
-            pp[9]+=1
-    return su,pp
 
 
 def convi():
@@ -1331,9 +1330,9 @@ while time<=기한:
         day_by_day()
         continue
     print(" "*25+'무엇을 할까?')
-    print("[100] - 아르바이트* \t [101] - 편의점*   \t [102] - 경마장*")
+    print("[100] - 아르바이트  \t [101] - 편의점     \t [102] - 경마장")
     print("[103] - 주식구매    \t [104] - 마트      \t [105] - 은행")
-    print("[106] - 씻기*       \t [107] - 먹기*     \t [108] - 바카라*")
+    print("[106] - 씻기        \t [107] - 먹기        \t [108] - 바카라")
     print("[109] - 초밥집      \t [110] - 주식판매  \t [200] - 저장하기")
     print("[300] - 불러오기")
     print("  			            		 [999] - 휴식")
