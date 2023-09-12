@@ -115,7 +115,7 @@ def intinput(a):
     return int(t)
 print("-"*80)
 print("    박지호인 내가 부자가 될 수 있을 리 없잖아,무리무리!(※무리가 아니었다?!)    ")
-print(" "*65+"ver 1.10.0")
+print(" "*65+"ver 1.9.1")
 print("-"*80)
 print("[0] 힘세고 강한 시작")
 print("[1] 불러오기")
@@ -130,8 +130,34 @@ if ttt==2:
     print("프로그램을 종료합니다.")
     exit()
 if ttt==1:
-    load()
-else:
+    print('최근 저장파일')
+    for i in range(10):
+        print(f'[{i}]:',end='')
+        if os.path.isfile(a[i])==False:
+            print('-'*20)
+            continue
+        with open(a[i]) as p:
+            k=p.read().split('\n')
+            print(f'최근 저장:{k[0]}')
+        p.close()
+    print('[999] - 불러오지 않고 나간다.\n')
+    print('불러올 파일의 번호를 누르시오')
+    while 1:
+        ttt=intinput(input())
+        if ttt==999:
+            break
+        if ttt>10:
+            print("잘못된 입력")
+            elif os.path.isfile(a[ttt])==False:
+            print('저장된 파일이 없습니다.')
+        else:
+            break
+    if ttt==999:
+        loa=0
+    else:
+        load(ttt)
+        loa=1
+if loa==0:
     print("-"*80)
     print(' '*25+"설명을 들으시겠습니까?")
     print("[0] 듣기")
@@ -1215,6 +1241,8 @@ while time<=기한:
             ttt=intinput(input())
             if ttt>10 and ttt!=999:
                 print("잘못된 입력")
+            elif os.path.isfile(a[ttt])==False and ttt!=999:
+                print('저장된 파일이 없습니다.')
             else:
                 break
         if ttt==999:
@@ -1222,20 +1250,31 @@ while time<=기한:
         saving(ttt)
         continue
     elif pii==300:
-        print('정말 로드 하시겠습니까?')
-        with open(a[0]) as p:
-            k=p.read().split('\n')
-            print(f'최근 저장:{k[0]}')
-        p.close()
-        print("[0] - 불러온다 \t [1] - 안한다")
+        print('최근 저장파일')
+        for i in range(10):
+            print(f'[{i}]:',end='')
+            if os.path.isfile(a[i])==False:
+                print('-'*20)
+                continue
+            with open(a[i]) as p:
+                k=p.read().split('\n')
+                print(f'최근 저장:{k[0]}')
+            p.close()
+        print('[999] - 불러오지 않고 나간다.\n')
+        print('불러올 파일의 번호를 누르시오')
         while 1:
             ttt=intinput(input())
-            if ttt>1:
+            if ttt==999:
+                break
+            if ttt>10:
                 print("잘못된 입력")
+            elif os.path.isfile(a[ttt])==False:
+                print('저장된 파일이 없습니다.')
             else:
                 break
-        if ttt==0:
-            load()
+        if ttt==999:
+            continue
+        load(ttt)
         continue
     elif pii==999:
         rest()
@@ -1252,4 +1291,4 @@ if 목표-자금<=0:
     print("해당세이브로 무한모드를 진행할 수 있습니다. 하시겠습니까?:)")
     기한=1e14
     목표=1e20
-    saving()
+    saving(9)
