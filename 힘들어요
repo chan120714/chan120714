@@ -120,7 +120,7 @@ def intinput(a):
     return int(t)
 print("-"*80)
 print("    박지호인 내가 부자가 될 수 있을 리 없잖아,무리무리!(※무리가 아니었다?!)    ")
-print(" "*65+"ver 1.9.1")
+print(" "*65+"ver 1.10.1")
 print("-"*80)
 print("[0] 힘세고 강한 시작")
 print("[1] 불러오기")
