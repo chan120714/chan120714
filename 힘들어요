@@ -125,6 +125,7 @@ print("-"*80)
 print("[0] 힘세고 강한 시작")
 print("[1] 불러오기")
 print("[2] 안하기")
+loa=0
 while 1:
     ttt=intinput(input())
     if ttt>2:
@@ -136,26 +137,53 @@ if ttt==2:
     exit()
 if ttt==1:
     print('최근 저장파일')
-    for i in range(10):
-        print(f'[{i}]:',end='')
-        if os.path.isfile(a[i])==False:
-            print('-'*20)
-            continue
-        with open(a[i]) as p:
-            k=p.read().split('\n')
-            print(f'최근 저장:{k[0]}')
-        p.close()
-    print('[999] - 불러오지 않고 나간다.\n')
-    print('불러올 파일의 번호를 누르시오')
+    page=0
     while 1:
-        ttt=intinput(input())
-        if ttt==999:
-            break
-        if ttt>10:
-            print("잘못된 입력")
-        elif os.path.isfile(a[ttt])==False:
-            print('저장된 파일이 없습니다.')
-        else:
+        for i in range(10):
+            print(f'[{page*10+i}]:',end='')
+            if os.path.isfile(a[page*10+i])==False:
+                print('-'*20)
+                continue
+            with open(a[i]) as p:
+                k=p.read().split('\n')
+            print(f'최근 저장:{k[0]}')
+            p.close()
+        if os.path.isfile(a[-1])==True:
+            with open(a[i]) as p:
+                k=p.read().split('\n')
+            print(f'[30] - 최근 저장:{k[0]}')
+            p.close()
+        if page!=0:
+            print('[100] - 이전 페이지 \t ',end='')
+        if page!=2:
+            print('[200] - 다음 페이지 \t ',end=' ')
+        print('[999] - 불러오지 않고 나간다.\n')
+        print('불러올 파일의 번호를 누르시오')
+        while 1:
+            ttt=intinput(input())
+            if ttt==999:
+                break
+            if ttt==200:
+                if page!=2:
+                    page+=1
+                    break
+                else:
+                    print("마지막 페이지 입니다.")
+                    continue
+            if ttt==100:
+                if page!=0:
+                    page-=1
+                    break
+                else:
+                    print("첫 페이지 입니다.")
+                    continue
+            if ttt>30:
+                print("잘못된 입력")
+            elif os.path.isfile(a[ttt])==False:
+                    print('저장된 파일이 없습니다.')
+            else:
+                break
+        if ttt==999 or ttt<=30:
             break
     if ttt==999:
         loa=0
@@ -497,9 +525,11 @@ def baccarat():
             print("[0] - 뱅커 \t [1] - 플레이어")
             qw=intinput(input())
         while 1:
-            p=intinput(input('얼마를 거시겠습니까?'))
+            p=intinput(input('얼마를 거시겠습니까? (최대 50000원)'))
             if p>자금:
                 print("돈이 부족합니다.")
+            elif p>50000:
+                print('도박을 지양합시다.')
             else:
                 자금-=p
                 break
@@ -798,6 +828,7 @@ def convi():
                         else:
                             a.append(k)
                             break
+                print("구매 완료!")
                 lotto_buy.append(a)
             for i in range(pp-tr):
                 a=[]
@@ -1326,3 +1357,4 @@ if 목표-자금<=0:
     기한=1e14
     목표=1e20
     saving(30)
+    print('저장완료! 게임을 다시실행해주세요')
