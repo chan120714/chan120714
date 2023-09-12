@@ -12,7 +12,12 @@ sys.setrecursionlimit(1000000)
 sys.set_int_max_str_digits(1000000)
 INF=1e10
 a=['loading1.txt','loading2.txt','loading3.txt','loading4.txt','loading5.txt',
-   'loading6.txt','loading7.txt','loading8.txt','loading9.txt','loading10.txt']
+   'loading6.txt','loading7.txt','loading8.txt','loading9.txt','loading10.txt',
+   'loading11.txt','loading12.txt','loading13.txt','loading14.txt','loading15.txt',
+   'loading16.txt','loading17.txt','loading18.txt','loading19.txt','loading20.txt',
+   'loading21.txt','loading12.txt','loading23.txt','loading24.txt','loading25.txt',
+   'loading26.txt','loading17.txt','loading28.txt','loading29.txt','loading30.txt',
+   'last.txt']
 년=1
 year=1
 month=1
@@ -148,7 +153,7 @@ if ttt==1:
             break
         if ttt>10:
             print("잘못된 입력")
-            elif os.path.isfile(a[ttt])==False:
+        elif os.path.isfile(a[ttt])==False:
             print('저장된 파일이 없습니다.')
         else:
             break
@@ -279,17 +284,17 @@ def inc_buy():
     global 주식,주가,자금,보유량
     고유번호={100:'애플',101:'삼성',102:'코스피',103:'코스닥',104:'나스닥',105:'테슬라',106:'엔비디아'}
     print('주식을 구매하시겠습니까?')
-    print(f"[100] - 애플 {주식['애플']} \t [101] - 삼성 {주식['삼성']}")
-    print(f"[102] - 코스피 {주식['코스피']} \t [103] - 코스닥 {주식['코스닥']}")
-    print(f"[104] - 나스닥 {주식['나스닥']} \t [105] - 테슬라 {주식['테슬라']}")
-    print(f"[106] - 엔비디아 {주식['엔비디아']} \t [999] - 나가기")
+    print(f"[100] - 애플 {주식['애플']}({보유량['애플']}개) \t [101] - 삼성 {주식['삼성']}({보유량['삼성']}개)")
+    print(f"[102] - 코스피 {주식['코스피']}({보유량['코스피']}개) \t [103] - 코스닥 {주식['코스닥']}({보유량['코스닥']}개)")
+    print(f"[104] - 나스닥 {주식['나스닥']}({보유량['나스닥']}개) \t [105] - 테슬라 {주식['테슬라']}({보유량['테슬라']}개)")
+    print(f"[106] - 엔비디아 {주식['엔비디아']}({보유량['엔비디아']}개) \t [999] - 나가기")
     pii=int(input())
     if pii==999:
         return
     elif pii<100 or pii>106:
         print('잘못된입력')
     else:
-        print('몇 주 매수 하시겠습니까?')
+        print(f'몇 주 매수 하시겠습니까? (최대{자금//주식[고유번호[pii]]}개)')
         t=int(input())
         if 주식[고유번호[pii]]*t<=자금:
             print('구매완료')
@@ -315,33 +320,25 @@ def inc_sell():
         if 주가==1 and 가격==1:
             주가=0
             가격=0
-        print("[0] - 팔래 \t [1] - 아직아니야")
-        pl=int(input())
-        if pl==0:
-            for i in 보유량:
-                print(f'{i}:{보유량[i]}개 \t')
-            print(f"[100] - 애플 {주식['애플']}({보유량['애플']}개) \t [101] - 삼성 {주식['삼성']}({보유량['삼성']}개)")
-            print(f"[102] - 코스피 {주식['코스피']}({보유량['코스피']}개) \t [103] - 코스닥 {주식['코스닥']}({보유량['코스닥']}개)")
-            print(f"[104] - 나스닥 {주식['나스닥']}({보유량['나스닥']}개) \t [105] - 테슬라 {주식['테슬라']}({보유량['테슬라']}개)")
-            print(f"[106] - 엔비디아 {주식['엔비디아']}({보유량['엔비디아']}개) \t [999] - 나가기")
-            print("팔 주식을 입력해 주십시오")
-            pii=int(input())
-            if pii==999:
-                return
-            elif pii<100 or pii>106:
-                print('잘못된입력')
-            else:
-                print('몇 주 매도 하시겠습니까?')
-                t=int(input())
-                if 보유량[고유번호[pii]]>=t:
-                    print('매도완료')
-                    보유량[고유번호[pii]]-=t
-                    자금+=주식[고유번호[pii]]*t
-                    주가=가격
-            return inc_sell()
-        else:
+        print(f"[100] - 애플 {주식['애플']}({보유량['애플']}개) \t [101] - 삼성 {주식['삼성']}({보유량['삼성']}개)")
+        print(f"[102] - 코스피 {주식['코스피']}({보유량['코스피']}개) \t [103] - 코스닥 {주식['코스닥']}({보유량['코스닥']}개)")
+        print(f"[104] - 나스닥 {주식['나스닥']}({보유량['나스닥']}개) \t [105] - 테슬라 {주식['테슬라']}({보유량['테슬라']}개)")
+        print(f"[106] - 엔비디아 {주식['엔비디아']}({보유량['엔비디아']}개) \t [999] - 나가기")
+        print("팔 주식을 입력해 주십시오")
+        pii=int(input())
+        if pii==999:
             return
-
+        elif pii<100 or pii>106:
+            print('잘못된입력')
+        else:
+            print('몇 주 매도 하시겠습니까?')
+            t=int(input())
+            if 보유량[고유번호[pii]]>=t:
+                print('매도완료')
+                보유량[고유번호[pii]]-=t
+                자금+=주식[고유번호[pii]]*t
+                주가=가격
+        return inc_sell()
         
 def umamusume():
     global 자금
@@ -973,7 +970,7 @@ def shower():
     print('-'*80)
     print(" "*25+'몸을 씻었다...')
     print('-'*80)
-    청결도=6
+    청결도=min(청결도+5,9)
 
 def market():
     global 자금,소지물품,침대
@@ -1047,7 +1044,7 @@ def eat():
     else:
         print('\n[999] - 나가기')
     while 1:
-        pii=intinput(input('먹으실 번호를 눌러주십시오'))
+        pii=intinput(input('번호를 눌러주십시오'))
         if pii==999:
             return
         t=0
@@ -1090,6 +1087,7 @@ def eat():
                     print('해당 물품은 가지고 있지 않습니다.')
         if t==0:
             print('해당 물품이 존재하지 않습니다.')
+        print()
         return eat()
 def saving(n):
     p=open(a[n],'w')
@@ -1239,38 +1237,74 @@ while time<=기한:
         print('저장할 파일의 번호를 누르시오')
         while 1:
             ttt=intinput(input())
-            if ttt>10 and ttt!=999:
+            if ttt==999:
+                break
+            elif ttt>10:
                 print("잘못된 입력")
-            elif os.path.isfile(a[ttt])==False and ttt!=999:
-                print('저장된 파일이 없습니다.')
             else:
                 break
         if ttt==999:
             continue
-        saving(ttt)
+        if os.path.isfile(a[ttt])==True:
+            print('정말 덮어쓰시겠습니까?')
+            print('[0] - 덮어쓴다 \t [1] - 덮어쓰지 않는다.')
+            kkk=intinput(input())
+            if kkk==1:
+                continue
+            else:
+                saving(ttt)
+        else:
+            saving(ttt)
         continue
     elif pii==300:
         print('최근 저장파일')
-        for i in range(10):
-            print(f'[{i}]:',end='')
-            if os.path.isfile(a[i])==False:
-                print('-'*20)
-                continue
-            with open(a[i]) as p:
-                k=p.read().split('\n')
-                print(f'최근 저장:{k[0]}')
-            p.close()
-        print('[999] - 불러오지 않고 나간다.\n')
-        print('불러올 파일의 번호를 누르시오')
+        page=0
         while 1:
-            ttt=intinput(input())
-            if ttt==999:
-                break
-            if ttt>10:
-                print("잘못된 입력")
-            elif os.path.isfile(a[ttt])==False:
-                print('저장된 파일이 없습니다.')
-            else:
+            for i in range(10):
+                print(f'[{page*10+i}]:',end='')
+                if os.path.isfile(a[page*10+i])==False:
+                    print('-'*20)
+                    continue
+                with open(a[i]) as p:
+                    k=p.read().split('\n')
+                    print(f'최근 저장:{k[0]}')
+                p.close()
+            if os.path.isfile(a[-1])==True:
+                with open(a[i]) as p:
+                    k=p.read().split('\n')
+                print(f'[30] - 최근 저장:{k[0]}')
+                p.close()
+            if page!=0:
+                print('[100] - 이전 페이지 \t ',end='')
+            if page!=2:
+                print('[200] - 다음 페이지 \t ',end=' ')
+            print('[999] - 불러오지 않고 나간다.\n')
+            print('불러올 파일의 번호를 누르시오')
+            while 1:
+                ttt=intinput(input())
+                if ttt==999:
+                    break
+                if ttt==200:
+                    if page!=2:
+                        page+=1
+                        break
+                    else:
+                        print("마지막 페이지 입니다.")
+                        continue
+                if ttt==100:
+                    if page!=0:
+                        page-=1
+                        break
+                    else:
+                        print("첫 페이지 입니다.")
+                        continue
+                if ttt>10:
+                    print("잘못된 입력")
+                elif os.path.isfile(a[ttt])==False:
+                    print('저장된 파일이 없습니다.')
+                else:
+                    break
+            if ttt==999 or ttt<=30:
                 break
         if ttt==999:
             continue
@@ -1291,4 +1325,4 @@ if 목표-자금<=0:
     print("해당세이브로 무한모드를 진행할 수 있습니다. 하시겠습니까?:)")
     기한=1e14
     목표=1e20
-    saving(9)
+    saving(30)
