@@ -40,6 +40,8 @@ power_buy=[]
 침대=0
 게임기=0
 당첨확인=0
+대출=0
+저축=0
 주식={
     '애플':180000,
     '삼성':70000,
@@ -51,20 +53,91 @@ power_buy=[]
 }
 보유량={
 '애플':0,'삼성':0,'코스피':0,'코스닥':0,'나스닥':0,'테슬라':0,'엔비디아':0}
+
+def saving(n,tr):
+    p=open(a[n],'w')
+    p.write(tr)
+    p.write('\n')
+    p.write(str(datetime.now()))
+    p.write('\n')
+    p.write(str(년))
+    p.write('\n')
+    p.write(str(year))
+    p.write('\n')
+    p.write(str(month))
+    p.write('\n')
+    p.write(str(date))
+    p.write('\n')
+    p.write(str(time))
+    p.write('\n')
+    p.write(str(tt))
+    p.write('\n')
+    p.write(str(ti))
+    p.write('\n')
+    for i in 복권:
+        p.write(str(복권[i]))
+        p.write('\n')
+    for i in 소지물품:
+        p.write(str(소지물품[i]))
+        p.write('\n')
+    p.write(str(len(lotto_buy)))
+    p.write('\n')
+    for i in range(len(lotto_buy)):
+        for j in lotto_buy[i]:
+            p.write(str(j))
+            p.write(' ')
+        p.write('\n')
+    p.write(str(len(power_buy)))
+    p.write('\n')
+    for i in range(len(power_buy)):
+        for j in power_buy[i]:
+            p.write(str(j))
+            p.write(' ')
+        p.write('\n')
+    p.write(str(포만감))
+    p.write('\n')
+    p.write(str(청결도))
+    p.write('\n')
+    p.write(str(피로도))
+    p.write('\n')
+    p.write(str(침대))
+    p.write('\n')
+    p.write(str(게임기))
+    p.write('\n')
+    p.write(str(당첨확인))
+    p.write('\n')
+    for i in 주식:
+        p.write(str(주식[i]))
+        p.write('\n')
+    for i in 보유량:
+        p.write(str(보유량[i]))
+        p.write('\n')
+    p.write(str(자금))
+    p.write('\n')
+    p.write(str(목표))
+    p.write('\n')
+    p.write(str(기한))
+    p.write('\n')
+    p.write(str(대출))
+    p.write('\n')
+    p.write(str(저축))
+    p.write('\n')
+    p.close()
+
 def load(n):
-    global 년,year,month,date,time,tt,ti,복권,소지물품,lotto_buy,power_buy,포만감,청결도,피로도,침대,게임기,당첨확인,주식,보유량,자금,목표,기한,a
+    global 년,year,month,date,time,tt,ti,복권,소지물품,lotto_buy,power_buy,포만감,청결도,피로도,침대,게임기,당첨확인,주식,보유량,자금,목표,기한,a,대출,저축
     with open(a[n]) as p:
         k=p.read().split('\n')
-    년=int(k[1])
-    year=int(k[2])
-    month=int(k[3])
-    date=int(k[4])
-    time=int(k[5])
-    tt=int(k[6])
-    ti=int(k[7])
-    복권['로또']=int(k[8])
-    복권['파워볼']=int(k[9])
-    tu=10
+    년=int(k[2])
+    year=int(k[3])
+    month=int(k[4])
+    date=int(k[5])
+    time=int(k[6])
+    tt=int(k[7])
+    ti=int(k[8])
+    복권['로또']=int(k[9])
+    복권['파워볼']=int(k[10])
+    tu=11
     for i in 소지물품:
         소지물품[i]=int(k[tu])
         tu+=1
@@ -108,6 +181,10 @@ def load(n):
     tu+=1
     기한=int(k[tu])
     tu+=1
+    대출=int(k[tu])
+    tu+=1
+    저축=int(k[tu])
+    tu+=1
     p.close()
 def intinput(a):
     t=''
@@ -120,7 +197,7 @@ def intinput(a):
     return int(t)
 print("-"*80)
 print("    박지호인 내가 부자가 될 수 있을 리 없잖아,무리무리!(※무리가 아니었다?!)    ")
-print(" "*65+"ver 1.10.1")
+print(" "*65+"ver 2.1.1")
 print("-"*80)
 print("[0] 힘세고 강한 시작")
 print("[1] 불러오기")
@@ -144,9 +221,9 @@ if ttt==1:
             if os.path.isfile(a[page*10+i])==False:
                 print('-'*20)
                 continue
-            with open(a[i]) as p:
+            with open(a[page*10+i]) as p:
                 k=p.read().split('\n')
-            print(f'최근 저장:{k[0]}')
+            print(f'{k[0]} : {k[1]}')
             p.close()
         if os.path.isfile(a[-1])==True:
             with open(a[i]) as p:
@@ -486,6 +563,46 @@ def lotto(k):
             pp[5]+=1
     return su,pp
 
+def bank_renew():
+    global 저축,대출
+    저축*=1.001
+    대출*=1.002
+
+    
+def bank():
+    global 자금,저축,대출
+    print("[100] - 저축 (현재 이자율:연 5%)")
+    print('[200] - 대출 (현재 이자율:연 20%)')
+    print("             \t [999] - 나가기")
+    while 1:
+        pp=intinput(input())
+        if pp==999:
+            return
+        if pp==100 or pp==101:
+            break
+        else:
+            print('잘못된 입력')
+    if pp==100:
+        print("얼마를 저축하시겠습니까?")
+        while 1:
+            tt=intinput(input())
+            if tt<=자금:
+                break
+            else:
+                print('돈이 부족합니다.')
+        저축+=tt
+        자금-=tt
+    else:
+        print('얼마를 대출하겠습니까?')
+        while 1:
+            tt=intinput(input())
+            if tt<=자금:
+                break
+            else:
+                print('돈이 부족합니다.')
+        자금+=tt
+        대출+=tt
+    return bank()
 
 def baccarat():
     global 자금
@@ -851,8 +968,11 @@ def convi():
         if yes==0:
             print("1부터 69까지의 숫자중 5개를 선택하신뒤, 1부터 26까지의 숫자중 하나를 선택하시면 됩니다.")
             print("로또보다 당첨확률이 더 낮고, 더 비싸지만, 당첨금액이 더 높습니다.")
-        print("몇 장 사시겠습니까?")
+        print(f"몇 장 사시겠습니까? 최대{2000-복권['파워볼']}장")
         pp=intinput(input())
+        if pp>2000-복권['파워볼']:
+            print("인생한방을 지양하는 삶을 추구합시다.")
+            return convi()
         if pp*2600<=자금:
             복권['파워볼']+=pp
             자금-=pp*2600
@@ -984,6 +1104,7 @@ def day_by_day():
         ti+=1
         if ti>6:
             ti=0
+            bank_renew()
         주식갱신()
         print("하루가 지났다...")
         date+=1
@@ -1004,29 +1125,72 @@ def shower():
     청결도=min(청결도+5,9)
 
 def market():
-    global 자금,소지물품,침대
+    global 자금,소지물품,게임기,침대
+    카탈로그={100:'스테이크 키트',101:'돼지고기 주물럭',102:'배추김치',103:'샐러드',104:'마라탕',105:'김밥',106:'게임기',107:'침대'}
+    가격={100:30000,101:15000,102:21000,103:5000,104:15000,105:4000,106:250000,107:1000000}
     print('[100] - 스테이크 밀키트(30000)(1인용) \t [101] - 돼지고기 주물럭 (15000)(2인용)')
     print('[102] - 배추김치 (21000) (20개입)     \t [103] - 샐러드(5000)(1개입)')
     print('[104] - 마라탕 밀키트 (15000)(2인용)  \t [105] - 김밥(4000)(1줄)')
-    if 소지물품['게임기']==0:
-        print('[106] - 게임기(250000)            \t ')
+    if 게임기==0:
+        print('[106] - 게임기(250000)            \t ',end=' ')
     if 침대==0:
-        print('[107] - 편안한 침대(1000000)')
-    return
+        print('[107] - 편안한 침대(1000000)',end=' ')
+    print('[999] - 나가기')
+    while 1:
+        ppp=intinput(input())
+        if ppp==999:
+            return
+        elif ppp==106:
+            if 게임기==0:
+                break
+            else:
+                print('잘못된 입력')
+        elif ppp==107:
+            if 침대==0:
+                break
+            else:
+                print('잘못된 입력')
+        elif 100<=ppp<=105:
+            break
+        else:
+            print('잘못된 입력')
+    if 자금>=가격[ppp]:
+        if ppp>105:
+            print(f'선택한 물품:{카탈로그[ppp]} 정말 구매하시겠습니까?')
+            print('[0] - 구매한다 \t [1] - 구매하지 않는다')
+            kp=intinput(input())
+            if kp==0:
+                if ppp==106:
+                    자금-=250000
+                    게임기=1
+                else:
+                    자금-=1000000
+                    침대=1
+            return market()
+        print(f'선택한 물품:{카탈로그[ppp]} 몇 개를 구매하시겠습니까? (최대 {자금//가격[ppp]}개)')
+        while 1:
+            pp=intinput(input())
+            if 자금>=가격[ppp]*pp:
+                break
+            else:
+                print('돈이 부족합니다.')
+        자금-=가격[ppp]*pp
+        소지물품[카탈로그[ppp]]+=pp
+        return market()
+    
 
 
 def sushi():
     global 자금,포만감,피로도
     가격={100:100000,101:100000,102:250000,103:20000}
     메뉴={100:'초밥 A코스',101:'초밥 B코스',102:'오마카세',103:'오늘의 가성비 초밥'}
-    print("-"*80)
-    print(" "*14+"★★ 대단히 엄청나게 유명하고 맛있는 초밥집 ★★\n")
-    print()
-    print(" "*32+"이랏샤이마세!")
-    print('[100] - 초밥 A코스(100000) \t [101] - 초밥 B코스(100000)')
-    print('[102] - 오마카세(250000)   \t [103] - 오늘의 가성비 초밥(20000)')
-    print('[999] - 시식만 하고 나가기')
     while 1:
+        print("-"*80)
+        print(" "*14+"★★ 대단히 엄청나게 유명하고 맛있는 초밥집 ★★\n")
+        print()
+        print('[100] - 초밥 A코스(100000) \t [101] - 초밥 B코스(100000)')
+        print('[102] - 오마카세(250000)   \t [103] - 오늘의 가성비 초밥(20000)')
+        print('[999] - 시식만 하고 나가기')
         pii=intinput(input())
         if pii==999:
             print("제작자의 배려로 당신은 초밥을 먹었습니다.")
@@ -1052,6 +1216,8 @@ def sushi():
                 return
             else:
                 print('돈이 부족합니다.')
+
+                
 def eat():
     global 소지물품,포만감
     소지번호={'삼각김밥':100,'컵라면':101,'도시락':102,'샌드위치':103,
@@ -1120,69 +1286,6 @@ def eat():
             print('해당 물품이 존재하지 않습니다.')
         print()
         return eat()
-def saving(n):
-    p=open(a[n],'w')
-    p.write(str(datetime.now()))
-    p.write('\n')
-    p.write(str(년))
-    p.write('\n')
-    p.write(str(year))
-    p.write('\n')
-    p.write(str(month))
-    p.write('\n')
-    p.write(str(date))
-    p.write('\n')
-    p.write(str(time))
-    p.write('\n')
-    p.write(str(tt))
-    p.write('\n')
-    p.write(str(ti))
-    p.write('\n')
-    for i in 복권:
-        p.write(str(복권[i]))
-        p.write('\n')
-    for i in 소지물품:
-        p.write(str(소지물품[i]))
-        p.write('\n')
-    p.write(str(len(lotto_buy)))
-    p.write('\n')
-    for i in range(len(lotto_buy)):
-        for j in lotto_buy[i]:
-            p.write(str(j))
-            p.write(' ')
-        p.write('\n')
-    p.write(str(len(power_buy)))
-    p.write('\n')
-    for i in range(len(power_buy)):
-        for j in power_buy[i]:
-            p.write(str(j))
-            p.write(' ')
-        p.write('\n')
-    p.write(str(포만감))
-    p.write('\n')
-    p.write(str(청결도))
-    p.write('\n')
-    p.write(str(피로도))
-    p.write('\n')
-    p.write(str(침대))
-    p.write('\n')
-    p.write(str(게임기))
-    p.write('\n')
-    p.write(str(당첨확인))
-    p.write('\n')
-    for i in 주식:
-        p.write(str(주식[i]))
-        p.write('\n')
-    for i in 보유량:
-        p.write(str(보유량[i]))
-        p.write('\n')
-    p.write(str(자금))
-    p.write('\n')
-    p.write(str(목표))
-    p.write('\n')
-    p.write(str(기한))
-    p.write('\n')
-    p.close()
 
     
 일=[31,28,31,30,31,30,31,31,30,31,30,31]
@@ -1195,9 +1298,9 @@ while time<=기한:
         print(f"잔여 {기한-time}일",end='')
     print(f" 소지금:{자금}원")
     if 목표>=INF:
-        print()
+        print(f'대출:{대출}원 저축:{저축}원')
     else:
-        print(f"(목표금액까지 {목표-자금}원)")
+        print(f"(목표금액까지 {목표-자금}원) 대출:{대출}원 저축:{저축}원")
     print("-"*80)
     print("보유아이템:",end='')
     소지=0
@@ -1243,6 +1346,10 @@ while time<=기한:
         umamusume()
     elif pii==103:
         inc_buy()
+    elif pii==104:
+        market()
+    elif pii==105:
+        bank()
     elif pii==106:
         shower()
     elif pii==107:
@@ -1254,39 +1361,67 @@ while time<=기한:
     elif pii==110:
         inc_sell()
     elif pii==200:
-        print('최근 저장파일')
-        for i in range(10):
-            print(f'[{i}]:',end='')
-            if os.path.isfile(a[i])==False:
-                print('-'*20)
-                continue
-            with open(a[i]) as p:
-                k=p.read().split('\n')
-                print(f'최근 저장:{k[0]}')
-            p.close()
-        print('[999] - 저장하지 않고 나간다.\n')
-        print('저장할 파일의 번호를 누르시오')
+        page=0
         while 1:
-            ttt=intinput(input())
+            for i in range(10):
+                print(f'[{page*10+i}]:',end='')
+                if os.path.isfile(a[page*10+i])==False:
+                    print('-'*20)
+                    continue
+                with open(a[page*10+i]) as p:
+                    k=p.read().split('\n')
+                    print(f'{k[0]} : {k[1]}')
+                p.close()
+            if page!=0:
+                print('[100] - 이전 페이지 \t ',end='')
+            if page!=2:
+                print('[200] - 다음 페이지 \t ',end=' ')
+            print('[999] - 불러오지 않고 나간다.\n')
+            print('저장할 파일의 번호를 누르시오')
+            while 1:
+                ttt=intinput(input())
+                if ttt==999:
+                    break
+                if ttt==200:
+                    if page!=2:
+                        page+=1
+                        break
+                    else:
+                        print("마지막 페이지 입니다.")
+                        continue
+                if ttt==100:
+                    if page!=0:
+                        page-=1
+                        break
+                    else:
+                        print("첫 페이지 입니다.")
+                        continue
+                if ttt>=30:
+                    print("잘못된 입력")
+                else:
+                    break
             if ttt==999:
                 break
-            elif ttt>10:
-                print("잘못된 입력")
-            else:
-                break
-        if ttt==999:
-            continue
-        if os.path.isfile(a[ttt])==True:
-            print('정말 덮어쓰시겠습니까?')
-            print('[0] - 덮어쓴다 \t [1] - 덮어쓰지 않는다.')
-            kkk=intinput(input())
-            if kkk==1:
+            if ttt==200 or ttt==100:
                 continue
+            if os.path.isfile(a[ttt])==True:
+                print('정말 덮어쓰시겠습니까?')
+                print('[0] - 덮어쓴다 \t [1] - 덮어쓰지 않는다.')
+                kkk=intinput(input())
+                if kkk==1:
+                    continue
+                else:
+                    print("파일 이름을 정해주십시오")
+                    array=input()
+                    saving(ttt,array)
+                    break
             else:
-                saving(ttt)
-        else:
-            saving(ttt)
-        continue
+                print("파일 이름을 정해주십시오")
+                array=input()
+                saving(ttt,array)
+                break
+            continue
+        
     elif pii==300:
         print('최근 저장파일')
         page=0
@@ -1296,9 +1431,9 @@ while time<=기한:
                 if os.path.isfile(a[page*10+i])==False:
                     print('-'*20)
                     continue
-                with open(a[i]) as p:
+                with open(a[page*10+i]) as p:
                     k=p.read().split('\n')
-                    print(f'최근 저장:{k[0]}')
+                    print(f'{k[0]} : {k[1]}')
                 p.close()
             if os.path.isfile(a[-1])==True:
                 with open(a[i]) as p:
@@ -1329,7 +1464,7 @@ while time<=기한:
                     else:
                         print("첫 페이지 입니다.")
                         continue
-                if ttt>10:
+                if ttt>30:
                     print("잘못된 입력")
                 elif os.path.isfile(a[ttt])==False:
                     print('저장된 파일이 없습니다.')
@@ -1343,6 +1478,9 @@ while time<=기한:
         continue
     elif pii==999:
         rest()
+    else:
+        print('해당하는 행동이 존재하지 않습니다.:(')
+        continue
     day_by_day()
     if 포만감<=-100:
         print("아사하였다...")
@@ -1350,7 +1488,10 @@ while time<=기한:
     if 청결도<=-8:
         print("안 씻어 사망하였다...")
         break
-if 목표-자금<=0:
+text=0
+for i in 주식:
+    text+=주식[i]*보유량[i]
+if text+자금+입금>=대출+목표:
     print("축하드립니다!")
     print("엔딩을 보는것에 성공하셨습니다.")
     print("해당세이브로 무한모드를 진행할 수 있습니다. 하시겠습니까?:)")
