@@ -3,7 +3,6 @@ from math import*
 from turtle import*
 from collections import*
 from itertools import*
-from decimal import*
 from time import*
 from datetime import*
 import sys
@@ -197,7 +196,7 @@ def intinput(a):
     return int(t)
 print("-"*80)
 print("    박지호인 내가 부자가 될 수 있을 리 없잖아,무리무리!(※무리가 아니었다?!)    ")
-print(" "*65+"ver 2.1.1")
+print(" "*65+"ver 2.3.1")
 print("-"*80)
 print("[0] 힘세고 강한 시작")
 print("[1] 불러오기")
@@ -311,9 +310,11 @@ if loa==0:
                 print("빡빢찌호",end='')
                 자금=0
                 목표+=10000000
+                대출+=10000000
             else:
                 자금=0
                 목표=INF*INF
+                대출+=10000000
                 print("빢빢찌호",end='')
                 기한=INF
         else:
@@ -384,7 +385,7 @@ def 주식갱신():
     for i in 주식:
         a=randint(-10,10)
         주식[i]*=(100+a)/100
-        주식[i]=int(주식[i])
+        주식[i]=ceil(주식[i])
 def inc_buy():
     global 주식,주가,자금,보유량
     고유번호={100:'애플',101:'삼성',102:'코스피',103:'코스닥',104:'나스닥',105:'테슬라',106:'엔비디아'}
@@ -393,14 +394,14 @@ def inc_buy():
     print(f"[102] - 코스피 {주식['코스피']}({보유량['코스피']}개) \t [103] - 코스닥 {주식['코스닥']}({보유량['코스닥']}개)")
     print(f"[104] - 나스닥 {주식['나스닥']}({보유량['나스닥']}개) \t [105] - 테슬라 {주식['테슬라']}({보유량['테슬라']}개)")
     print(f"[106] - 엔비디아 {주식['엔비디아']}({보유량['엔비디아']}개) \t [999] - 나가기")
-    pii=int(input())
+    pii=intinput(input())
     if pii==999:
         return
     elif pii<100 or pii>106:
         print('잘못된입력')
     else:
         print(f'몇 주 매수 하시겠습니까? (최대{자금//주식[고유번호[pii]]}개)')
-        t=int(input())
+        t=intinput(input())
         if 주식[고유번호[pii]]*t<=자금:
             print('구매완료')
             보유량[고유번호[pii]]+=t
@@ -430,14 +431,14 @@ def inc_sell():
         print(f"[104] - 나스닥 {주식['나스닥']}({보유량['나스닥']}개) \t [105] - 테슬라 {주식['테슬라']}({보유량['테슬라']}개)")
         print(f"[106] - 엔비디아 {주식['엔비디아']}({보유량['엔비디아']}개) \t [999] - 나가기")
         print("팔 주식을 입력해 주십시오")
-        pii=int(input())
+        pii=intinput(input())
         if pii==999:
             return
         elif pii<100 or pii>106:
             print('잘못된입력')
         else:
             print('몇 주 매도 하시겠습니까?')
-            t=int(input())
+            t=intinput(input())
             if 보유량[고유번호[pii]]>=t:
                 print('매도완료')
                 보유량[고유번호[pii]]-=t
@@ -445,17 +446,23 @@ def inc_sell():
                 주가=가격
         return inc_sell()
         
-def umamusume():
+def umamusume(a):
     global 자금
     win=[0,50,100,150,200]
     bb=[2,1.5,1,0.8,0.1]
     p=[]
+    if a==3:
+        print('오늘 경기는 전부 종료 되었다...')
+        return
     while True:
         print('소지금',자금,'원')
-        print("걸 돈을 입력하시오",end='')
+        print("걸 돈을 입력하시오(최대 500000원)",end='')
         w=intinput(input())
         if w>자금:
             print("돈이 부족합니다. 다시 입력해주십시오")
+        elif w>500000:
+            print('도박은 재미로만 합시다.')
+            return umamusume()
         else:
             자금-=w
             break
@@ -524,7 +531,7 @@ def umamusume():
     print("[0] - 더 할래! [1]- 나갈래")
     k=intinput(input())
     if k==0:
-        return umamusume()
+        return umamusume(a+1)
     else:
         return
 
@@ -614,20 +621,20 @@ def powerball(k):
 
 def bank_renew():
     global 저축,대출
-    저축*=1.001
-    대출*=1.002
+    저축=ceil(저축*1.001)
+    대출=ceil(대출*1.002)
 
     
 def bank():
     global 자금,저축,대출
-    print("[100] - 저축 (현재 이자율:연 5%)")
-    print('[200] - 대출 (현재 이자율:연 20%)')
-    print("             \t [999] - 나가기")
+    print("[100] - 저축 (현재 이자율:연 5%)  \t [101] - 출금")
+    print('[200] - 대출 (현재 이자율:연 20%) \t [201] - 상환')
+    print("                                  \t [999] - 나가기")
     while 1:
         pp=intinput(input())
         if pp==999:
             return
-        if pp==100 or pp==101:
+        if pp==100 or pp==200 or pp==101 or pp==201:
             break
         else:
             print('잘못된 입력')
@@ -641,6 +648,29 @@ def bank():
                 print('돈이 부족합니다.')
         저축+=tt
         자금-=tt
+    elif pp==101:
+        print(f'얼마를 출금하시겠습니까? 현재 {저축}원 저금중')
+        while 1:
+            tt=intinput(input())
+            if tt<=저축:
+                break
+            else:
+                print('돈이 부족합니다.')
+        저축-=tt
+        자금+=tt
+    elif pp==201:
+        print(f'얼마를 상환하시겠습니까? 현재 {대출}원 대출중')
+        while 1:
+            tt=intinput(input())
+            if tt<=자금 and tt<=대출:
+                break
+            elif tt>대출:
+                tt=대출
+                break
+            else:
+                print('돈이 부족합니다.')
+        자금+=tt
+        대출+=tt
     else:
         print('얼마를 대출하겠습니까?')
         while 1:
@@ -690,11 +720,15 @@ def baccarat():
             print("\n어느쪽에 거시겠습니까?")
             print("[0] - 뱅커 \t [1] - 플레이어")
             qw=intinput(input())
+        elif k>6:
+            print("잘못된 입력")
+            continue
+        
         while 1:
-            p=intinput(input('얼마를 거시겠습니까? (최대 50000원)'))
+            p=intinput(input('얼마를 거시겠습니까? (최대 250000원)'))
             if p>자금:
                 print("돈이 부족합니다.")
-            elif p>50000:
+            elif p>250000:
                 print('도박을 지양합시다.')
             else:
                 자금-=p
@@ -1177,8 +1211,6 @@ def market():
         소지물품[카탈로그[ppp]]+=pp
         return market()
     
-
-
 def sushi():
     global 자금,포만감,피로도
     가격={100:100000,101:100000,102:250000,103:20000}
@@ -1287,6 +1319,54 @@ def eat():
         return eat()
 
     
+def present(a):
+    global 자금,피로도,소지물품,게임기
+    print('경품 뽑기를 해보시겠습니까? (뽑기비용 :1000원)')
+    print('[0] - 한다 \t [1]- 하지않는다')
+    ppp=intinput(input())
+    if ppp==1:
+        return
+    else:
+        kk=randint(1,100)
+        if kk<=1:
+            tt=1
+        else:
+            print("꽝!")
+            tt=0
+        if tt==1:
+            tr=randint(1,10)
+            if tr==1:
+                if 게임기==0:
+                    print("2등 당첨!")
+                    print("상품으로 게임기를 받았다.")
+                    게임기=1
+                else:
+                    print("2등 당첨!")
+                    print("게임기를 이미 소지중입니다.")
+                    print('돈을 250000원 받았습니다.')
+                    자금+=250000
+            elif tr==2:
+                if 침대==0:
+                    print("1등 당첨!")
+                    print("상품으로 침대를 받았다.")
+                    침대=1
+                else:
+                    print("1등 당첨!")
+                    print("침대를 이미 소지중입니다.")
+                    print('돈을 1000000원 받았습니다.')
+                    자금+=1000000
+            elif tr<=5:
+                print("3등 당첨")
+                print(f'스테이크 키트를 받았다.')
+                소지물품['스테이크 키트']+=1
+            else:
+                print("피로회복제 당첨!")
+                print("피로도가 3 감소하였다.")
+                피로도=max(-1,피로도-3)
+    if a==10:
+        print('경품뽑기는 마감되었다..')
+        return
+    return present(a+1)
 일=[31,28,31,30,31,30,31,31,30,31,30,31]
 주=['월','화','수','목','금','토','일']
 while time<=기한:
@@ -1299,7 +1379,10 @@ while time<=기한:
     if 목표>=INF:
         print(f'대출:{대출}원 저축:{저축}원')
     else:
-        print(f"(목표금액까지 {목표-자금}원) 대출:{대출}원 저축:{저축}원")
+        text=0
+        for i in 주식:
+            text+=주식[i]*보유량[i]
+        print(f"(목표금액까지 {max(대출+목표-text-자금-저축,0)}원) 대출:{대출}원 저축:{저축}원")
     print("-"*80)
     print("보유아이템:",end='')
     소지=0
@@ -1331,10 +1414,10 @@ while time<=기한:
         continue
     print(" "*25+'무엇을 할까?')
     print("[100] - 아르바이트  \t [101] - 편의점     \t [102] - 경마장")
-    print("[103] - 주식구매    \t [104] - 마트      \t [105] - 은행")
-    print("[106] - 씻기        \t [107] - 먹기        \t [108] - 바카라")
-    print("[109] - 초밥집      \t [110] - 주식판매  \t [200] - 저장하기")
-    print("[300] - 불러오기")
+    print("[103] - 주식구매    \t [104] - 마트       \t [105] - 은행")
+    print("[106] - 씻기        \t [107] - 먹기       \t [108] - 바카라")
+    print("[109] - 초밥집      \t [110] - 주식판매   \t [111] - 뽑기")
+    print("[200] - 저장하기    \t [300] - 불러오기")
     print("  			            		 [999] - 휴식")
     pii=intinput(input())
     if pii==100:
@@ -1342,7 +1425,7 @@ while time<=기한:
     elif pii==101:
         convi()
     elif pii==102:
-        umamusume()
+        umamusume(0)
     elif pii==103:
         inc_buy()
     elif pii==104:
@@ -1359,6 +1442,8 @@ while time<=기한:
         sushi()
     elif pii==110:
         inc_sell()
+    elif pii==111:
+        present(0)
     elif pii==200:
         page=0
         while 1:
@@ -1490,11 +1575,11 @@ while time<=기한:
 text=0
 for i in 주식:
     text+=주식[i]*보유량[i]
-if text+자금+입금>=대출+목표:
+if text+자금+저축>=대출+목표:
     print("축하드립니다!")
     print("엔딩을 보는것에 성공하셨습니다.")
     print("해당세이브로 무한모드를 진행할 수 있습니다. 하시겠습니까?:)")
     기한=1e14
     목표=1e20
-    saving(30)
+    saving(30,'ending')
     print('저장완료! 게임을 다시실행해주세요')
