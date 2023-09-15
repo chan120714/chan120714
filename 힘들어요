@@ -196,7 +196,7 @@ def intinput(a):
     return int(t)
 print("-"*80)
 print("    박지호인 내가 부자가 될 수 있을 리 없잖아,무리무리!(※무리가 아니었다?!)    ")
-print(" "*65+"ver 2.3.1")
+print(" "*65+"ver 2.3.3")
 print("-"*80)
 print("[0] 힘세고 강한 시작")
 print("[1] 불러오기")
@@ -462,7 +462,7 @@ def umamusume(a):
             print("돈이 부족합니다. 다시 입력해주십시오")
         elif w>500000:
             print('도박은 재미로만 합시다.')
-            return umamusume()
+            return umamusume(a)
         else:
             자금-=w
             break
@@ -471,7 +471,7 @@ def umamusume(a):
         tt=intinput(input())
         if tt==100:
             자금+=w
-            return umamusume()
+            return umamusume(a)
         elif tt<1 or tt>5:
             print("해당하는 거북이가 존재하지 않습니다. :(")
         else:
@@ -669,8 +669,8 @@ def bank():
                 break
             else:
                 print('돈이 부족합니다.')
-        자금+=tt
-        대출+=tt
+        자금-=tt
+        대출-=tt
     else:
         print('얼마를 대출하겠습니까?')
         while 1:
