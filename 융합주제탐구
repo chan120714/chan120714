@@ -1,4 +1,5 @@
 import sys
+sys.setrecursionlimit(1000000)
 from collections import defaultdict
 from math import *
 from heapq import*
@@ -252,6 +253,37 @@ def 위치설정():
                         return num[n]
                 else:
                     print('Invalid input')
+    else:
+        t=0
+        maxv=10
+        while True:
+            if t!=maxv:
+                for i in range(10):
+                    print(f"[{i+t*10}] - {num[i+t*10]}")
+            else:
+                for i in range(3):
+                    print(f'[{i+t*10}] - {num[i+t*10]}')
+            if t!=0:
+                print('[300] - 前',end=' ')
+            if t!=maxv:
+                print('[301] - 次')
+            else:
+                print()
+            n=intinput(input())
+            if n==300 and t!=0:
+                t-=1
+            elif n==301 and t!=maxv:
+                t+=1
+            else:
+                if 0<=n and n<len(num):
+                    print(f"{num[n]} 合っていますか？")
+                    print('[0] - はい  [1] - いいえ')
+                    a=intinput(input())
+                    if a==0:
+                        return num[n]
+                else:
+                    print('入力が間違っています')
+        
         
 def 화장실(start):
     visited=defaultdict(lambda:sys.maxsize)
@@ -307,6 +339,7 @@ def debugging():
         for j in graph:
             (목적지(i,j))
 def 언어선택():
+    global lang
     if lang==0:
         print('언어를 선택해주세요')
         print('[0] - 한국어 \t [1] - English \t [2] - 日本語')
@@ -339,19 +372,42 @@ def 언어선택():
             return 언어선택()
 언어선택()
 while True:
-    print("원하시는 기능을 선택하여 주십시오")
-    print('[1] : 목적지 찾기 \t [2] : 화장실 찾기')
-    print('[100] : 언어 재설정')
-    n=intinput(input())
-    if n==1:
-        목적지찾기()
-    if n==2:
-        화장실찾기()
-    if n==3:
-        print("주의 : 이기능은 디버깅으로, 문제가 생긴것 같을때 돌려보는 기능입니다. 진행하시겠습니까?")
-        t=input('Y/N')
-        if 'y' in t.lower():
-            debugging()
-            print('문제가 발견되지 않았습니다.')
-    if n==100:
-        언어선택()
+    if lang==0:
+        print("원하시는 기능을 선택하여 주십시오")
+        print('[1] : 목적지 찾기 \t [2] : 화장실 찾기')
+        print('[100] : 언어 재설정')
+        n=intinput(input())
+        if n==1:
+            목적지찾기()
+        if n==2:
+            화장실찾기()
+        if n==3:
+            print("주의 : 이기능은 디버깅으로, 문제가 생긴것 같을때 돌려보는 기능입니다. 진행하시겠습니까?")
+            t=input('Y/N')
+            if 'y' in t.lower():
+                debugging()
+                print('문제가 발견되지 않았습니다.')
+        if n==100:
+            언어선택()
+    elif lang==1:
+        print("Please select the function you want")
+        print('[1] : Find Destination \t [2] : Finding Restroom')
+        print('[100] : Change Language')
+        n=intinput(input())
+        if n==1:
+            목적지찾기()
+        if n==2:
+            화장실찾기()
+        if n==100:
+            언어선택()
+    else:
+        print("ご希望の機能をお選びください")
+        print('[1] : 目的地探し \t [2] : トイレ探し')
+        print('[100] : 言語変更')
+        n=intinput(input())
+        if n==1:
+            목적지찾기()
+        if n==2:
+            화장실찾기()
+        if n==100:
+            언어선택()
