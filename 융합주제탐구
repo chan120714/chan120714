@@ -2,14 +2,25 @@ import sys
 from collections import defaultdict
 from math import *
 from heapq import*
+lang=0
+# lang = 0 -> 한국어(초기설정)
+# lang = 1 -> 영어
+# lang = 2 -> 일본어
 def intinput(a):
     t=''
     for i in a:
         if '0'<=i<='9':
             t+=i
     if len(t)==0:
-        print('무언가 잘못되었습니다.')
-        return intinput(input("다시 입력"))
+        if lang==0:
+            print('무언가 잘못되었습니다.')
+            return intinput(input("다시 입력"))
+        elif lang==1:
+            print('Something is Wrong')
+            return intinput(input('Re-enter'))
+        else:
+            print('入力が間違っています')
+            return intinput(input("もう一度入力お願いします"))
     return int(t)
 def 학반(a):
     if ('학년' in a) and ('반' in a):
@@ -145,7 +156,6 @@ graph={
 }
 
 num=list(graph.keys())
-lang=0
 def 목적지(start,end):
     q=[]
     visited=defaultdict(lambda:sys.maxsize)
@@ -174,40 +184,75 @@ def 목적지(start,end):
                 t.append(i)
                 cur=i
                 break
+
+        #디버깅용 코드
         if last==cur:
+            #문제가 있으면 출력
             print(start,end,cur)
             exit()
     return t
 def 위치설정():
-    t=0
-    maxv=10
-    while True:
-        if t!=maxv:
-            for i in range(10):
-                print(f"[{i+t*10}] - {num[i+t*10]}")
-        else:
-            for i in range(3):
-                print(f'[{i+t*10}] - {num[i+t*10]}')
-        if t!=0:
-            print('[300] - 이전 페이지',end=' ')
-        if t!=maxv:
-            print('[301] - 다음 페이지')
-        else:
-            print()
-        n=intinput(input())
-        if n==300 and t!=0:
-            t-=1
-        elif n==301 and t!=maxv:
-            t+=1
-        else:
-            if 0<=n and n<len(num):
-                print(f"{num[n]} 이(가) 맞으십니까?")
-                print('[0] - 맞다  [1] - 아니다')
-                a=intinput(input())
-                if a==0:
-                    return num[n]
+    if lang==0:
+        t=0
+        maxv=10
+        while True:
+            if t!=maxv:
+                for i in range(10):
+                    print(f"[{i+t*10}] - {num[i+t*10]}")
             else:
-                print('잘못된 입력입니다.')
+                for i in range(3):
+                    print(f'[{i+t*10}] - {num[i+t*10]}')
+            if t!=0:
+                print('[300] - 이전 페이지',end=' ')
+            if t!=maxv:
+                print('[301] - 다음 페이지')
+            else:
+                print()
+            n=intinput(input())
+            if n==300 and t!=0:
+                t-=1
+            elif n==301 and t!=maxv:
+                t+=1
+            else:
+                if 0<=n and n<len(num):
+                    print(f"{num[n]} 이(가) 맞으십니까?")
+                    print('[0] - 맞다  [1] - 아니다')
+                    a=intinput(input())
+                    if a==0:
+                        return num[n]
+                else:
+                    print('잘못된 입력입니다.')
+    elif lang==1:
+        t=0
+        maxv=10
+        while True:
+            if t!=maxv:
+                for i in range(10):
+                    print(f"[{i+t*10}] - {num[i+t*10]}")
+            else:
+                for i in range(3):
+                    print(f'[{i+t*10}] - {num[i+t*10]}')
+            if t!=0:
+                print('[300] - Previous',end=' ')
+            if t!=maxv:
+                print('[301] - Next')
+            else:
+                print()
+            n=intinput(input())
+            if n==300 and t!=0:
+                t-=1
+            elif n==301 and t!=maxv:
+                t+=1
+            else:
+                if 0<=n and n<len(num):
+                    print(f"Is {num[n]} correct?")
+                    print('[0] - Yes  [1] - No')
+                    a=intinput(input())
+                    if a==0:
+                        return num[n]
+                else:
+                    print('Invalid input')
+        
 def 화장실(start):
     visited=defaultdict(lambda:sys.maxsize)
     q=[]
@@ -261,9 +306,42 @@ def debugging():
     for i in graph:
         for j in graph:
             (목적지(i,j))
+def 언어선택():
+    if lang==0:
+        print('언어를 선택해주세요')
+        print('[0] - 한국어 \t [1] - English \t [2] - 日本語')
+        n=intinput(input())
+        if 0<=n and n<=2:
+            lang=n
+            return
+        else:
+            print('잘못된 입력입니다.')
+            return 언어선택()
+    elif lang==1:
+        print('Select Language')
+        print('[0] - 한국어 \t [1] - English \t [2] - 日本語')
+        n=intinput(input())
+        if 0<=n and n<=2:
+            lang=n
+            return
+        else:
+            print('Invalid input')
+            return 언어선택()
+    else:
+        print('言語を選ぶ')
+        print('[0] - 한국어 \t [1] - English \t [2] - 日本語')
+        n=intinput(input())
+        if 0<=n and n<=2:
+            lang=n
+            return
+        else:
+            print('入力が間違っています')
+            return 언어선택()
+언어선택()
 while True:
     print("원하시는 기능을 선택하여 주십시오")
     print('[1] : 목적지 찾기 \t [2] : 화장실 찾기')
+    print('[100] : 언어 재설정')
     n=intinput(input())
     if n==1:
         목적지찾기()
@@ -275,3 +353,5 @@ while True:
         if 'y' in t.lower():
             debugging()
             print('문제가 발견되지 않았습니다.')
+    if n==100:
+        언어선택()
