@@ -47,7 +47,7 @@ graph={
     '3-3':{'3-2':9000},
     '3-1':{'3학년 교무실':9000,'2층통로':40500},
     '3학년 교무실':{'진로관 2층 중앙':9000,'3-1':9000},
-    '2층통로':{'1층통로':18000,'3-1':40500, '3층통로':18000,'물리실':12500},
+    '2층통로':{'1층통로':18000,'3-1':40500, '3층통로':18000,'창의융합실':12500},
 
     #진로관 3층
     '진로관 3층 계단':{'진로관 3층 중앙':5000,'진로관 2층 계단':18000},
@@ -62,33 +62,33 @@ graph={
     '3층통로':{'교과교실3':22500,'2층통로':18000,'프로파일실':9000},
 
     #창학관 1층
-    '과학교실3':{'1층통로':4500,'과학교실2':9000,'생물실':9000},
-    '과학교실2':{'과학교실3':9000,'창학관 1층 중앙':10000,'생물실':9000},
-    '창학관 1층 중앙':{'과학교실2':10000,'과학교실1':9000,'창학관 1층 화장실':18000,'통로':14000,'창학관 1층 계단':2500},
+    '과학교실3':{'1층통로':4500,'공동교육과정 온라인교실':9000,'생물실':9000},
+    '공동교육과정 온라인교실':{'과학교실3':9000,'창학관 1층 중앙':10000,'생물실':9000},
+    '창학관 1층 중앙':{'공동교육과정 온라인교실':10000,'다락':9000,'창학관 1층 화장실':18000,'통로':14000,'창학관 1층 계단':2500},
     '창학관 1층 화장실':{'창학관 1층 중앙':18000},
-    '과학교실1':{'창학관 1층 중앙':9000},
+    '다락':{'창학관 1층 중앙':9000},
     '창학관 1층 계단':{'창학관 1층 중앙':2500,'창학관 2층 계단':15000},
-    '생물실':{'과학교실2':9000,'과학교실3':9000},
+    '생물실':{'공동교육과정 온라인교실':9000,'과학교실3':9000},
 
     #창학관 2층
     '창학관 2층 계단':{'창학관 1층 계단':15000,'창학관 2층 중앙':2500,'창학관 3층 계단':15000},
-    '창학관 2층 중앙':{'과학교육연구실':15000,'창학관 2층 화장실':7500,'컴퓨터실':9000,'과학 동아리실':2500,'지구과학실':9000,'물리실':6000,'창학관 2층 계단':2500},
-    '물리실':{'창학관 2층 중앙':6000,'2층통로':12500,'지구과학실':4000},
-    '지구과학실':{'창학관 2층 중앙':9000,'물리실':4000},
+    '창학관 2층 중앙':{'융합교육부':15000,'창학관 2층 화장실':7500,'컴퓨터실':9000,'과학 동아리실':2500,'지구과학실':9000,'창의융합실':6000,'창학관 2층 계단':2500},
+    '창의융합실':{'창학관 2층 중앙':6000,'2층통로':12500,'지구과학실':4000},
+    '지구과학실':{'창학관 2층 중앙':9000,'창의융합실':4000},
     '창학관 2층 화장실':{'창학관 2층 중앙':7500},
     '컴퓨터실':{'창학관 2층 중앙':9000},
     '과학 동아리실':{'창학관 2층 중앙':2500},
-    '과학교육연구실':{'창학관 2층 중앙':15000},
+    '융합교육부':{'창학관 2층 중앙':15000},
 
     #창학관 3층
     '창학관 3층 계단':{'창학관 2층 계단':15000,'창학관 3층 중앙':4000},
-    '창학관 3층 중앙':{'창학관 3층 화장실':7500,'창학관 3층 계단':4000,'연구실':15000,'영어전용교실':6500,'진로상담부':2500},
+    '창학관 3층 중앙':{'창학관 3층 화장실':7500,'창학관 3층 계단':4000,'연구실':15000,'멀티미디어실':6500,'Wee class':2500},
     '창학관 3층 화장실':{'창학관 3층 중앙':7500},
     '연구실':{'창학관 3층 중앙':15000},
-    '영어전용교실':{'창학관 3층 중앙':6500},
+    '멀티미디어실':{'창학관 3층 중앙':6500},
     '화학실':{'창학관 3층 중앙':9000},
-    '진로상담부':{'창학관 3층 중앙':2500,'화학실':9500},
-    '화학실':{'진로상담부':9500,'프로파일실':2500},
+    'Wee class':{'창학관 3층 중앙':2500,'화학실':9500},
+    '화학실':{'Wee class':9500,'프로파일실':2500},
     '프로파일실':{'화학실':2500,'3층통로':9000},
     #본관-창학관 연결로'
     '통로':{'창학관 1층 중앙':14000,'본관 2층 우측 계단':27000},
@@ -96,17 +96,17 @@ graph={
     #본관동 2층(창학관 연결)
     '본관 2층 우측 계단':{'통로':27000,'본관 2층 우측 화장실':4000,'보건실':8500,'본관 3층 우측 계단':15000},
     '본관 2층 우측 화장실':{'본관 2층 우측 계단':4000},
-    '보건실':{'본관 2층 우측 계단':8500,'교과정보실':9000},
-    '교과정보실':{'보건실':9000,'방통고 교무실':9000},
-    '방통고 교무실':{'교과정보실':9000,'본관 2층 중앙 계단':18000},
-    '본관 2층 중앙 계단':{'방통고 교무실':18000,'본관 3층 중앙 계단':15000,'방송실':4500,'본관 1층 우측 계단':15000},
+    '보건실':{'본관 2층 우측 계단':8500,'교육정보실':9000},
+    '교육정보실':{'보건실':9000,'학생생활안전교육부':9000},
+    '학생생활안전교육부':{'교육정보실':9000,'본관 2층 중앙 계단':18000},
+    '본관 2층 중앙 계단':{'학생생활안전교육부':18000,'본관 3층 중앙 계단':15000,'방송실':4500,'본관 1층 우측 계단':15000},
     '방송실':{'본관 2층 중앙 계단':4500,'교무실':13500},
     '교무실':{'방송실':13500,'2층 원형 계단':2500,'교장실':13500},
     '2층 원형 계단':{'교무실':2500,'1층 원형 계단':15000},
-    '교장실':{'교무실':13500,'인성교육부':9000},
-    '인성교육부':{'교장실':9000,'본관 2층 좌측 화장실':2500,'본관 2층 좌측 계단':6500},
-    '본관 2층 좌측 화장실':{'인성교육부':2500},
-    '본관 2층 좌측 계단':{'본관 1층 좌측 계단':15000,'본관 3층 좌측 계단':15000,'인성교육부':6500},
+    '교장실':{'교무실':13500,'창의인재부':9000},
+    '창의인재부':{'교장실':9000,'본관 2층 좌측 화장실':2500,'본관 2층 좌측 계단':6500},
+    '본관 2층 좌측 화장실':{'창의인재부':2500},
+    '본관 2층 좌측 계단':{'본관 1층 좌측 계단':15000,'본관 3층 좌측 계단':15000,'창의인재부':6500},
 
     #본관동 1층
     '본관 1층 우측 계단':{'본관 2층 중앙 계단':15000,'발간실':4500,'보일러실':4500},
@@ -155,6 +155,237 @@ graph={
     '본관 4층 좌측 화장실':{'2-1':2500},
 
 }
+English_keys={
+    '진로관 1층 계단':'The stairs on the 1st floor of the Jinro building',
+    '진로관 1층 중앙':'The center of the 3rd floor of Jinro Building',
+    '1층통로':'a first-floor passageway',
+    '시청각실':'AV room',
+    '교과교실2':'Curriculum Classroom 2',
+    '교과교실1':'Curriculum Classroom 1',
+    '진로관 1층 화장실':'restroom on the 1st floor of Jinro Building',
+    '진로관 2층 중앙':'The center of the 2nd floor of Jinro Building',
+    '진로관 2층 계단':'The stairs on the 2nd floor of the Jinro building',
+    '진로관 2층 화장실':'restroom on the 2nd floor of Jinro Building',
+    '3-2':'3-2',
+    '3-3':'3-3',
+    '3-1':'3-1',
+    '3학년 교무실':"Teachers' Office for 3rd Graders",
+    '2층통로':'a two-story passageway',
+    '진로관 3층 계단':'The stairs on the 3rd floor of the Jinro building',
+    '진로관 3층 중앙':'The center of the 3rd floor of Jinro Building',
+    '진로관 3층 화장실':'restroom on the 3rd floor of Jinro Building',
+    '3-7':'3-7',
+    '3-8':'3-8',
+    '3-6':'3-6',
+    '3-5':'3-5',
+    '3-4':'3-4',
+    '교과교실3':'Curriculum Classroom 3',
+    '3층통로':'a third-floor passageway',
+
+    '과학교실3':'a science Classroom 3',
+    '공동교육과정 온라인교실':'an online classroom in a joint curriculum',
+    '창학관 1층 중앙':'The center of the 1st floor of Changhak building',
+    '창학관 1층 화장실':'The restroom on the 1st floor of Changhak building',
+    '다락':'Darak',
+    '창학관 1층 계단':'The stairs on the 1st floor of the Changhak building',
+    '생물실':'a living room',
+    
+    '창학관 2층 계단':'The stairs on the 2nd floor of the Changhak building',
+    '창학관 2층 중앙':'The center of the 2nd floor of Changhak building',
+    '창의융합실':'a creative fusion room',
+    '지구과학실':'Earth Science room',
+    '창학관 2층 화장실':'The restroom on the 2nd floor of Changhak building',
+    '컴퓨터실':'Computer Lab',
+    '과학 동아리실':'Science club room',
+    '융합교육부':'Ministry of Convergence Education',
+
+    '창학관 3층 계단':'The stairs on the 3rd floor of the Changhak building',
+    '창학관 3층 중앙':'The center of the 3rd floor of Changhak building',
+    '창학관 3층 화장실':'The restroom on the 3rd floor of Changhak building',
+    '연구실':'a laboratory',
+    '멀티미디어실':'Multimedia room',
+    '화학실':'a chemistry room',
+    'Wee class':'Wee class',
+    '프로파일실':'Profile room',
+    '통로':'passageway',
+
+    #본관 2층
+    '본관 2층 우측 계단':'the stairs to the right on the 2nd floor of the main building',
+    '본관 2층 우측 화장실':'the restroom on the right side of the 2nd floor of the main building',
+    '보건실':'Health Room',
+    '교육정보실':'Education Information Office',
+    '학생생활안전교육부':'Ministry of Student Life Safety and Education',
+    '본관 2층 중앙 계단':'the center stairs on the 2nd floor of the main building',
+    '방송실':'Broadcasting room',
+    '교무실':"Teachers' Office",
+    '2층 원형 계단':'The circular staircase on the 2nd floor',
+    '교장실':"principal's Office",
+    '창의인재부':'the Ministry of Creative Resources',
+    '본관 2층 좌측 계단':'the stairs to the left on the 2nd floor of the main building',
+    '본관 2층 좌측 화장실':'the restroom on the left side of the 2nd floor of the main building',
+
+    #본관 1층
+    '본관 1층 우측 계단':'the stairs to the right on the 1st floor of the main building',
+    '보일러실':'a boiler room',
+    '발간실':'a publishing room',
+    '행정실':'administrative office',
+    '본관 1층 중앙':'The center of the 1st floor of the main building',
+    '1층 원형 계단':'The circular staircase on the 1st floor',
+    '문서고':'an archive',
+    '학습도움실2':'Learning Help Room 2',
+    '학습도움실1':'Learning Help Room 1',
+    '본관 1층 화장실':'the restroom of the 1st floor of the main building',
+    '본관 1층 좌측 계단':'the stairs to the left on the 1st floor of the main building',
+
+    #본관 3층
+    '본관 3층 우측 계단':'the stairs to the right on the 3rd floor of the main building',
+    '본관 3층 우측 화장실':'the restroom on the right side of the 3rd floor of the main building',
+    '1-8':'1-8',
+    '1-7':'1-7',
+    '1-6':'1-6',
+    '1-5':'1-5',
+    '3층 홈베이스':'the home base on the 3rd floor',
+    '본관 3층 중앙 계단':'the center stairs on the 3rd floor of the main building',
+    '1학년 교무실':"Teachers' Office for 1st Graders",
+    '1-4':'1-4',
+    '1-3':'1-3',
+    '1-2':'1-2',
+    '1-1':'1-1',
+    '본관 3층 좌측 계단':'the stairs to the left on the 3rd floor of the main building',
+    '본관 3층 좌측 화장실':'the restroom on the left side of the 3rd floor of the main building',
+
+    #본관 4층
+    '본관 4층 우측 계단':'the stairs to the right on the 4th floor of the main building',
+    '본관 4층 우측 화장실':'the restroom on the right side of the 4th floor of the main building',
+    '2-8':'2-8',
+    '2-7':'2-7',
+    '2-6':'2-6',
+    '2-5':'2-5',
+    '4층 홈베이스':'the home base on the 4th floor',
+    '본관 4층 중앙 계단':'the center stairs on the 4th floor of the main building',
+    '2학년 교무실':"Teachers' Office for 2nd Graders",
+    '2-4':'2-4',
+    '2-3':'2-3',
+    '2-2':'2-2',
+    '2-1':'2-1',
+    '본관 4층 좌측 계단':'the stairs to the left on the 4th floor of the main building',
+    '본관 4층 좌측 화장실':'the restroom on the left side of the 4th floor of the main building',
+}
+
+Japanese_keys={
+    '진로관 1층 계단':'ジンロ館一階の階段',
+    '진로관 1층 중앙':'ジンロ館1階中央',
+    '1층통로':'1階通路',
+    '시청각실':'視聴覚室',
+    '교과교실2':'教科教室2',
+    '교과교실1':'教科教室1',
+    '진로관 1층 화장실':'ジンロ館1階トイレ',
+    '진로관 2층 중앙':'ジンロ館2階中央',
+    '진로관 2층 계단':'ジンロ館二階の階段',
+    '진로관 2층 화장실':'ジンロ館2階トイレ',
+    '3-2':'3-2',
+    '3-3':'3-3',
+    '3-1':'3-1',
+    '3학년 교무실':'三年生の職員室',
+    '2층통로':'2階通路',
+    '진로관 3층 계단':'ジンロ館三階の階段',
+    '진로관 3층 중앙':'ジンロ館3階中央',
+    '진로관 3층 화장실':'ジンロ館3階トイレ',
+    '3-7':'3-7',
+    '3-8':'3-8',
+    '3-6':'3-6',
+    '3-5':'3-5',
+    '3-4':'3-4',
+    '교과교실3':'教科教室3',
+    '3층통로':'3階通路',
+    
+    '과학교실3':'科学教室3',
+    '공동교육과정 온라인교실':'共同教育課程 オンライン教室',
+    '창학관 1층 중앙':'チャンハク館1階中央',
+    '창학관 1층 화장실':'チャンハク館1階のトイレ',
+    '다락':'多樂',
+    '창학관 1층 계단':'チャンハク館1階の階段',
+    '생물실':'生物室',
+
+    '창학관 2층 계단':'チャンハク館2階の階段',
+    '창학관 2층 중앙':'チャンハク館2階中央',
+    '창의융합실':'創意融合室',
+    '지구과학실':'地球科学室',
+    '창학관 2층 화장실':'チャンハク館2階のトイレ',
+    '컴퓨터실':'コンピューター室',
+    '과학 동아리실':'科学部室',
+    '융합교육부':'融合教育部',
+    
+    '창학관 3층 계단':'チャンハク館3階の階段',
+    '창학관 3층 중앙':'チャンハク館3階中央',
+    '창학관 3층 화장실':'チャンハク館3階のトイレ',
+    '연구실':'研究室',
+    '멀티미디어실':'マルチメディア室',
+    '화학실':'化学室',
+    'Wee class':'Wee class',
+    '프로파일실':'プロファイル室',
+    
+    '통로':'通路',
+    
+    '본관 2층 우측 계단':'本館2階右側の階段',
+    '본관 2층 우측 화장실':'本館2階右側のトイレ',
+    '보건실':'保健室',
+    '교육정보실':'教育情報室',
+    '학생생활안전교육부':'学生生活安全教育部',
+    '본관 2층 중앙 계단':'本館2階 中央 かに段',
+    '방송실':'放送室',
+    '교무실':'職員室',
+    '2층 원형 계단':'二階 円形 階段',
+    '교장실':'校長室',
+    '창의인재부':'創意人材部',
+    '본관 2층 좌측 화장실':'本館2階左側のトイレ',
+    '본관 2층 좌측 계단':'本館2階左側の階段',
+    
+    '본관 1층 우측 계단':'本館1階右側の階段',
+    '보일러실':'ボイラー室',
+    '발간실':'発刊室',
+    '행정실':'行政室',
+    '본관 1층 중앙':'本館1階 中央 ',
+    '1층 원형 계단':'一階 円形 階段',
+    '문서고':'文書庫',
+    '학습도움실2':'学習支援室2',
+    '학습도움실1':'学習支援室1',
+    '본관 1층 화장실':'本館1階トイレ',
+    '본관 1층 좌측 계단':'本館1階左側の階段',
+    
+    '본관 3층 우측 계단':'本館3階右側の階段',
+    '본관 3층 우측 화장실':'本館3階右側のトイレ',
+    '1-8':'1-8',
+    '1-7':'1-7',
+    '1-6':'1-6',
+    '1-5':'1-5',
+    '3층 홈베이스':'3階 ホームベース',
+    '본관 3층 중앙 계단':'本館3階 中央 かに段',
+    '1학년 교무실':'一年生の職員室',
+    '1-4':'1-4',
+    '1-3':'1-3',
+    '1-2':'1-2',
+    '1-1':'1-1',
+    '본관 3층 좌측 계단':'本館3階左側の階段',
+    '본관 3층 좌측 화장실':'本館3階左側のトイレ',
+    
+    '본관 4층 우측 계단':'本館4階右側の階段',
+    '본관 4층 우측 화장실':'本館4階右側のトイレ',
+    '2-8':'2-8',
+    '2-7':'2-7',
+    '2-6':'2-6',
+    '2-5':'2-5',
+    '4층 홈베이스':'4階 ホームベース',
+    '본관 4층 중앙 계단':'本館4階 中央 かに段',
+    '2학년 교무실':'二年生の職員室',
+    '2-4':'2-4',
+    '2-3':'2-3',
+    '2-2':'2-2',
+    '2-1':'2-1',
+    '본관 4층 좌측 계단':'本館4階左側の階段',
+    '본관 4층 좌측 화장실':'本館4階左側のトイレ',
+}
+
 
 num=list(graph.keys())
 def 목적지(start,end):
@@ -229,10 +460,10 @@ def 위치설정():
         while True:
             if t!=maxv:
                 for i in range(10):
-                    print(f"[{i+t*10}] - {num[i+t*10]}")
+                    print(f"[{i+t*10}] - {English_keys[num[i+t*10]]}")
             else:
                 for i in range(3):
-                    print(f'[{i+t*10}] - {num[i+t*10]}')
+                    print(f'[{i+t*10}] - {English_keys[num[i+t*10]]}')
             if t!=0:
                 print('[300] - Previous',end=' ')
             if t!=maxv:
@@ -246,7 +477,7 @@ def 위치설정():
                 t+=1
             else:
                 if 0<=n and n<len(num):
-                    print(f"Is {num[n]} correct?")
+                    print(f"Is {English_keys[num[n]]} correct?")
                     print('[0] - Yes  [1] - No')
                     a=intinput(input())
                     if a==0:
@@ -259,10 +490,10 @@ def 위치설정():
         while True:
             if t!=maxv:
                 for i in range(10):
-                    print(f"[{i+t*10}] - {num[i+t*10]}")
+                    print(f"[{i+t*10}] - {Japanese_keys[num[i+t*10]]}")
             else:
                 for i in range(3):
-                    print(f'[{i+t*10}] - {num[i+t*10]}')
+                    print(f'[{i+t*10}] - {Japanese_keys[num[i+t*10]]}')
             if t!=0:
                 print('[300] - 前',end=' ')
             if t!=maxv:
@@ -276,7 +507,7 @@ def 위치설정():
                 t+=1
             else:
                 if 0<=n and n<len(num):
-                    print(f"{num[n]} 合っていますか？")
+                    print(f"{Japanese_keys[num[n]]} 合っていますか？")
                     print('[0] - はい  [1] - いいえ')
                     a=intinput(input())
                     if a==0:
@@ -320,19 +551,50 @@ def 도움말():
         print('[2] : 화장실 찾기 - 출발지에서 가장 가까운 화장실을 찾아드립니다.')
 
 def 목적지찾기():
-    print("출발지를 입력해주세요")
+    if lang==0:
+        print("출발지를 입력해주세요")
+    elif lang==1:
+        print("Please enter your departure point")
+    else:
+        print('出発地の入力をお願いします')
     n=위치설정()
-    print('도착지를 입력해주세요')
+    if lang==0:
+        print('도착지를 입력해주세요')
+    elif lang==1:
+        print('Please enter your destination')
+    else:
+        print('到着地を入力してください')
     m=위치설정()
     print()
-    print(*목적지(n,m)[::-1],sep='\n')
+    if lang==0:
+        print(*목적지(n,m)[::-1],sep='\n')
+    elif lang==1:
+        for i in 목적지(n,m)[::-1]:
+            print(English_keys[i])
+    else:
+        for i in 화장실(n)[::-1]:
+            print(Japanese_keys[i])
     return
 
 def 화장실찾기():
-    print("이 기능은 화장지를 제공해주지 않습니다.")
-    print("출발지를 입력해주세요")
+    if lang==0:
+        print("이 기능은 화장지를 제공해주지 않습니다.")
+        print("출발지를 입력해주세요")
+    elif lang==1:
+        print('This function does not provide toilet paper')
+        print('Please enter your departure point')
+    else:
+        print('この機能はトイレットペーパーを提供しません')
+        print('到着地を入力してください')
     n=위치설정()
-    print(*화장실(n)[::-1],sep='\n')
+    if lang==0:
+        print(*화장실(n)[::-1],sep='\n')
+    elif lang==1:
+        for i in 화장실(n)[::-1]:
+            print(English_keys[i])
+    else:
+        for i in 화장실(n)[::-1]:
+            print(Japanese_keys[i])
     return
 def debugging():
     for i in graph:
@@ -370,6 +632,7 @@ def 언어선택():
         else:
             print('入力が間違っています')
             return 언어선택()
+print("오타, 오역/의역이 있을수 있습니다.")
 언어선택()
 while True:
     if lang==0:
