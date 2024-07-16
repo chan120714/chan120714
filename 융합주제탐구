@@ -3,6 +3,7 @@ sys.setrecursionlimit(1000000)
 from collections import defaultdict
 from math import *
 from heapq import*
+import time
 lang=0
 # lang = 0 -> 한국어(초기설정)
 # lang = 1 -> 영어
@@ -634,6 +635,22 @@ def 언어선택():
             return 언어선택()
 print("오타, 오역/의역이 있을수 있습니다.")
 언어선택()
+if lang==0:
+    print('로딩중',end='')
+    for i in range(3):
+        time.sleep(0.3)
+        print('.',end='')
+elif lang==1:
+    print('loading',end='')
+    for i in range(3):
+        time.sleep(0.3)
+        print('.',end='')
+else:
+    print('ローディング中',end='')
+    for i in range(3):
+        time.sleep(0.3)
+        print('.',end='')
+print()
 while True:
     if lang==0:
         print("원하시는 기능을 선택하여 주십시오")
